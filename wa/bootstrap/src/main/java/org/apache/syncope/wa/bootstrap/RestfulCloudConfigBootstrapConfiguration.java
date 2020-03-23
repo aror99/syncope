@@ -18,36 +18,59 @@
  */
 package org.apache.syncope.wa.bootstrap;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.net.URI;
-import java.util.Map;
-import javax.ws.rs.core.MediaType;
-import org.apache.cxf.jaxrs.client.WebClient;
+import org.apache.syncope.common.keymaster.client.api.ServiceOps;
+import org.apache.syncope.common.keymaster.client.zookeper.ZookeeperKeymasterClientContext;
+import org.apache.syncope.wa.WARestClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.cloud.bootstrap.config.PropertySourceLocator;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MapPropertySource;
-import org.springframework.core.env.PropertySource;
 
-@Configuration(value = "restfulCloudConfigBootstrapConfiguration", proxyBeanMethods = false)
-public class RestfulCloudConfigBootstrapConfiguration implements PropertySourceLocator {
+import java.util.HashMap;
+import java.util.Map;
 
-    private static final ObjectMapper MAPPER = new ObjectMapper().findAndRegisterModules();
+@Configuration(proxyBeanMethods = false)
+@ImportAutoConfiguration(ZookeeperKeymasterClientContext.class)
+@PropertySource("classpath:wa.properties")
+@PropertySource(value = "file:${conf.directory}/wa.properties", ignoreResourceNotFound = true)
+public class RestfulCloudConfigBootstrapConfiguration {
+    private static final Logger LOG = LoggerFactory.getLogger(RestfulCloudConfigBootstrapConfiguration.class);
 
-    @Override
-    public PropertySource<?> locate(final Environment environment) {
-        try {
-            String content = WebClient.create(URI.create("https://demo5926981.mockable.io/casproperties")).
-                    accept(MediaType.APPLICATION_JSON_TYPE).
-                    get().
-                    readEntity(String.class);
+    @Value("${anonymousUser}")
+    private String anonymousUser;
 
-            Map<String, Object> payload = MAPPER.readValue(content, new TypeReference<Map<String, Object>>() {
-            });
-            return new MapPropertySource(getClass().getName(), payload);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Unable to fetch settings", e);
-        }
+    @Value("${anonymousKey}")
+    private String anonymousKey;
+
+    @Value("${useGZIPCompression}")
+    private boolean useGZIPCompression;
+
+    @Autowired
+    @Bean
+    public WARestClient waRestClient(final ServiceOps serviceOps) {
+        return new WARestClient(serviceOps, anonymousUser, anonymousKey, useGZIPCompression);
+    }
+
+    @Bean
+    public PropertySourceLocator configPropertySourceLocator() {
+        return new PropertySourceLocator() {
+            @Override
+            public org.springframework.core.env.PropertySource<?> locate(final Environment environment) {
+                try {
+                    LOG.info("Bootstrapping WA configuration");
+                    Map<String, Object> payload = new HashMap<>();
+                    return new MapPropertySource(getClass().getName(), payload);
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Unable to fetch settings", e);
+                }
+            }
+        };
     }
 }

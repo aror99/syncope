@@ -17,12 +17,13 @@
  * under the License.
  */
 
-package org.apache.syncope.wa.config.rest;
+package org.apache.syncope.wa.starter.rest;
 
 import org.apereo.cas.services.AbstractServiceRegistry;
 import org.apereo.cas.services.RegisteredService;
 import org.apereo.cas.services.ServiceRegistryListener;
 
+import org.apache.syncope.wa.WARestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;

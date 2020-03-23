@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.wa.config.rest;
+package org.apache.syncope.wa;
 
 import org.apache.syncope.client.lib.AnonymousAuthenticationHandler;
 import org.apache.syncope.client.lib.SyncopeClient;
@@ -25,26 +25,28 @@ import org.apache.syncope.common.keymaster.client.api.ServiceOps;
 import org.apache.syncope.common.keymaster.client.api.model.NetworkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 public class WARestClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(WARestClient.class);
 
-    @Autowired
-    private ServiceOps serviceOps;
+    private final ServiceOps serviceOps;
 
-    @Value("${anonymousUser}")
-    private String anonymousUser;
+    private final String anonymousUser;
 
-    @Value("${anonymousKey}")
-    private String anonymousKey;
+    private final String anonymousKey;
 
-    @Value("${useGZIPCompression}")
-    private boolean useGZIPCompression;
+    private final boolean useGZIPCompression;
 
     private SyncopeClient client;
+
+    public WARestClient(final ServiceOps serviceOps, final String anonymousUser,
+                        final String anonymousKey, final boolean useGZIPCompression) {
+        this.serviceOps = serviceOps;
+        this.anonymousUser = anonymousUser;
+        this.anonymousKey = anonymousKey;
+        this.useGZIPCompression = useGZIPCompression;
+    }
 
     public SyncopeClient getSyncopeClient() {
         synchronized (this) {
