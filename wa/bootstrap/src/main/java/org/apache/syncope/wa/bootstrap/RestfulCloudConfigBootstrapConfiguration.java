@@ -58,8 +58,9 @@ public class RestfulCloudConfigBootstrapConfiguration {
         return new WARestClient(serviceOps, anonymousUser, anonymousKey, useGZIPCompression);
     }
 
+    @Autowired
     @Bean
-    public PropertySourceLocator configPropertySourceLocator() {
+    public PropertySourceLocator configPropertySourceLocator(final WARestClient waRestClient) {
         return new PropertySourceLocator() {
             @Override
             public org.springframework.core.env.PropertySource<?> locate(final Environment environment) {
