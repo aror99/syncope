@@ -18,22 +18,19 @@
  */
 package org.apache.syncope.common.lib.search;
 
-import org.apache.cxf.jaxrs.ext.search.client.CompleteCondition;
+public interface AnyObjectProperty extends SyncopeProperty<AnyObjectCompleteCondition> {
 
-public interface AnyObjectProperty extends SyncopeProperty {
+    AnyObjectCompleteCondition inGroups(String group, String... moreGroups);
 
-    CompleteCondition inGroups(String group, String... moreGroups);
+    AnyObjectCompleteCondition notInGroups(String group, String... moreGroups);
 
-    CompleteCondition notInGroups(String group, String... moreGroups);
+    AnyObjectCompleteCondition inRelationships(String anyObject, String... moreAnyObjects);
 
-    CompleteCondition inRelationships(String anyObject, String... moreAnyObjects);
+    AnyObjectCompleteCondition notInRelationships(String anyObject, String... moreAnyObjects);
 
-    CompleteCondition notInRelationships(String anyObject, String... moreAnyObjects);
+    AnyObjectCompleteCondition inRelationshipTypes(String type, String... moreTypes);
 
-    CompleteCondition inRelationshipTypes(String type, String... moreTypes);
+    AnyObjectCompleteCondition notInRelationshipTypes(String type, String... moreTypes);
 
-    CompleteCondition notInRelationshipTypes(String type, String... moreTypes);
-
-    CompleteCondition isAssignable();
-
+    AnyObjectCompleteCondition isAssignable();
 }

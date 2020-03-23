@@ -409,9 +409,9 @@ under the License.
     <jackson.version>2.10.3</jackson.version>
 
     <spring.version>5.2.4.RELEASE</spring.version>
-    <spring-security.version>5.2.2.RELEASE</spring-security.version>
+    <spring-security.version>5.3.0.RELEASE</spring-security.version>
     <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
-    <spring-cloud-gateway.version>2.2.1.RELEASE</spring-cloud-gateway.version>
+    <spring-cloud-gateway.version>2.2.2.RELEASE</spring-cloud-gateway.version>
 
     <openjpa.version>3.1.1</openjpa.version>
     <hikaricp.version>3.4.2</hikaricp.version>
@@ -423,7 +423,7 @@ under the License.
 
     <cocoon.version>3.0.0-alpha-3</cocoon.version>
 
-    <groovy.version>3.0.1</groovy.version>
+    <groovy.version>3.0.2</groovy.version>
 
     <flowable.version>6.5.0</flowable.version>
 
@@ -432,7 +432,7 @@ under the License.
     <slf4j.version>1.7.30</slf4j.version>
     <opensaml.version>3.3.1</opensaml.version>
 
-    <elasticsearch.version>7.6.0</elasticsearch.version>
+    <elasticsearch.version>7.6.1</elasticsearch.version>
 
     <apacheds.version>2.0.0.AM25</apacheds.version>
     <apachedirapi.version>2.0.0.AM2</apachedirapi.version>
@@ -451,7 +451,7 @@ under the License.
 
     <h2.version>1.4.200</h2.version>
 
-    <junit.version>5.6.0</junit.version>
+    <junit.version>5.6.1</junit.version>
     <mockito.version>3.3.0</mockito.version>
 
     <swagger-core.version>2.1.1</swagger-core.version>
@@ -513,7 +513,8 @@ under the License.
     <cargo.log>${log.directory}/cargo.log</cargo.log>
     <cargo.output>${log.directory}/cargo-output.log</cargo.output>
 
-    <tomcat.version>9.0.31</tomcat.version>
+    <tomcat.version>9.0.33</tomcat.version>
+    <wildfly.version>19.0.0.Final</wildfly.version>
     <payara.version>5.194</payara.version>
     <javax.faces.version>2.4.0</javax.faces.version>
 
@@ -1198,7 +1199,7 @@ under the License.
       <dependency>
         <groupId>org.apache.tika</groupId>
         <artifactId>tika-core</artifactId>
-        <version>1.23</version>
+        <version>1.24</version>
       </dependency>
 
       <dependency>
@@ -1437,6 +1438,164 @@ under the License.
         <type>war</type>
       </dependency>
       <!-- /Flowable -->
+
+      <!-- CAS -->
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-audit</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-authentication</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-configuration-api</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-configuration</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-cookie</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-logout</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-logging</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-services</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-tickets</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-util</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-validation</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-web</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-webflow</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-core-events-configuration</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-thymeleaf</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-actions</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-ldap</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-reports</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-syncope-authentication</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-saml</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-person-directory</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-themes</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-oidc</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-validation</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-pm-webflow</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-pac4j-webflow</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-consent-webflow</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-aup-webflow</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-support-rest-service-registry</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apereo.cas</groupId>
+        <artifactId>cas-server-webapp-config</artifactId>
+        <version>${cas.version}</version>
+      </dependency>
+      <!-- /CAS -->
 
       <!-- Wicket -->
       <dependency>
@@ -1956,7 +2115,7 @@ under the License.
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.1.1</version>
+          <version>3.1.2</version>
           <configuration>
             <outputDirectory>${bundles.directory}</outputDirectory>
             <useBaseVersion>true</useBaseVersion>
@@ -2072,7 +2231,7 @@ under the License.
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven2-plugin</artifactId>
-          <version>1.7.10</version>
+          <version>1.7.11</version>
           <configuration>
             <configuration>
               <type>standalone</type>
@@ -2217,7 +2376,7 @@ under the License.
       <plugin>
         <groupId>org.gaul</groupId>
         <artifactId>modernizer-maven-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <configuration>
           <javaVersion>${targetJdk}</javaVersion>
           <ignorePackages>
@@ -2317,7 +2476,6 @@ under the License.
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
-        <version>0.13</version>
         <configuration>
           <excludes>
             <exclude>**/nbactions.xml</exclude>
@@ -2465,7 +2623,7 @@ under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.0</version>
         <configuration>
           <destDir>apidocs/3.0</destDir>
           <isOffline>false</isOffline>
@@ -2476,9 +2634,11 @@ under the License.
             <dependencySourceExclude>org.webjars.bower:*</dependencySourceExclude>
           </dependencySourceExcludes>
           <links>
-            <link>https://javaee.github.io/javaee-spec/javadocs/</link>
+            <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
+            <!-- See https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8212233 -->
+            <!--<link>https://javaee.github.io/javaee-spec/javadocs/</link>-->
             <link>http://www.slf4j.org/api/</link>
-            <link>http://connid.tirasa.net/apidocs/1.4/</link>
+            <link>http://connid.tirasa.net/apidocs/1.5/</link>
             <link>http://cxf.apache.org/javadoc/latest/</link>
             <link>http://fasterxml.github.io/jackson-core/javadoc/2.10/</link>
             <link>http://fasterxml.github.io/jackson-databind/javadoc/2.10/</link>
@@ -2487,18 +2647,17 @@ under the License.
             <link>http://fasterxml.github.io/jackson-dataformats-text/javadoc/yaml/2.10/</link>
             <link>http://fasterxml.github.io/jackson-dataformats-text/javadoc/csv/2.10/</link>
             <link>http://fasterxml.github.io/jackson-datatype-joda/javadoc/2.10/</link>
-            <link>http://www.javadoc.io/doc/org.apache.camel/camel-core/3.1.0/</link>
-            <link>http://www.javadoc.io/doc/org.apache.camel/camel-spring/3.1.0/</link>
+            <link>https://www.javadoc.io/doc/org.apache.camel/camel-core/latest/</link>
+            <link>https://www.javadoc.io/doc/org.apache.camel/camel-spring/latest/</link>
             <link>https://ci.apache.org/projects/wicket/apidocs/8.x/</link>
             <link>https://commons.apache.org/proper/commons-lang/javadocs/api-release/</link>
             <link>https://commons.apache.org/proper/commons-jexl/apidocs/</link>
-            <link>https://tika.apache.org/1.21/api/</link>
+            <link>https://tika.apache.org/1.24/api/</link>
             <link>https://docs.spring.io/spring-boot/docs/current/api/</link>
             <link>https://docs.spring.io/spring/docs/current/javadoc-api/</link>
             <link>https://docs.spring.io/spring-security/site/docs/current/api/</link>
             <link>http://www.flowable.org/docs/javadocs/</link>
             <link>https://build.shibboleth.net/nexus/content/sites/site/java-opensaml/3.3.1/apidocs/</link>
-            <link>https://artifacts.elastic.co/javadoc/org/elasticsearch/elasticsearch/7.6.0/index.html</link>
             <link>http://docs.swagger.io/swagger-core/v2.1.1/apidocs/</link>
           </links>
         </configuration>
@@ -2575,6 +2734,7 @@ under the License.
               </dependency>
             </dependencies>
             <configuration>
+              <skip>${skipTests}</skip>
               <doctype>book</doctype>
               <relativeBaseDir>true</relativeBaseDir>
               <sourceHighlighter>highlightjs</sourceHighlighter>
@@ -2666,7 +2826,7 @@ under the License.
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-site-plugin</artifactId>
-            <version>3.8.2</version>
+            <version>3.9.0</version>
             <configuration>
               <locales>en</locales>
               <generateProjectInfo>false</generateProjectInfo>
