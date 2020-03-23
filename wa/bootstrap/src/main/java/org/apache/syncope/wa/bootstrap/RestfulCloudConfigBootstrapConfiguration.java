@@ -19,6 +19,7 @@
 package org.apache.syncope.wa.bootstrap;
 
 import org.apache.syncope.common.keymaster.client.api.ServiceOps;
+import org.apache.syncope.common.keymaster.client.self.SelfKeymasterClientContext;
 import org.apache.syncope.common.keymaster.client.zookeper.ZookeeperKeymasterClientContext;
 import org.apache.syncope.wa.WARestClient;
 import org.slf4j.Logger;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration(proxyBeanMethods = false)
-@ImportAutoConfiguration(ZookeeperKeymasterClientContext.class)
+@ImportAutoConfiguration(classes = {ZookeeperKeymasterClientContext.class, SelfKeymasterClientContext.class})
 @PropertySource("classpath:wa.properties")
 @PropertySource(value = "file:${conf.directory}/wa.properties", ignoreResourceNotFound = true)
 public class RestfulCloudConfigBootstrapConfiguration {
