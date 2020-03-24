@@ -225,7 +225,6 @@ public class PullJobDelegate extends AbstractProvisioningJobDelegate<PullTask> i
 
             Set<String> moreAttrsToGet = new HashSet<>();
             actions.forEach(action -> moreAttrsToGet.addAll(action.moreAttrsToGet(profile, orgUnit)));
-
             OperationOptions options = MappingUtils.buildOperationOptions(
                     MappingUtils.getPullItems(orgUnit.getItems().stream()), moreAttrsToGet.toArray(new String[0]));
 
@@ -273,6 +272,7 @@ public class PullJobDelegate extends AbstractProvisioningJobDelegate<PullTask> i
             }
         }
 
+        // ...then provisions for any types
         ProvisionSorter provisionSorter = new DefaultProvisionSorter();
         if (pullTask.getResource().getProvisionSorter() != null) {
             try {
@@ -281,8 +281,7 @@ public class PullJobDelegate extends AbstractProvisioningJobDelegate<PullTask> i
                 LOG.error("While building {}", pullTask.getResource().getProvisionSorter(), e);
             }
         }
-        // ...then provisions for any types
-        SyncopePullResultHandler handler;
+
         GroupPullResultHandler ghandler = buildGroupHandler();
         for (Provision provision : pullTask.getResource().getProvisions().stream().
                 filter(provision -> provision.getMapping() != null).sorted(provisionSorter).
@@ -290,6 +289,7 @@ public class PullJobDelegate extends AbstractProvisioningJobDelegate<PullTask> i
 
             status.set("Pulling " + provision.getObjectClass().getObjectClassValue());
 
+            SyncopePullResultHandler handler;
             switch (provision.getAnyType().getKind()) {
                 case USER:
                     handler = buildUserHandler();
@@ -309,11 +309,9 @@ public class PullJobDelegate extends AbstractProvisioningJobDelegate<PullTask> i
             try {
                 Set<String> moreAttrsToGet = new HashSet<>();
                 actions.forEach(action -> moreAttrsToGet.addAll(action.moreAttrsToGet(profile, provision)));
-
                 Stream<? extends Item> mapItems = Stream.concat(
                         MappingUtils.getPullItems(provision.getMapping().getItems().stream()),
                         virSchemaDAO.findByProvision(provision).stream().map(VirSchema::asLinkingMappingItem));
-
                 OperationOptions options = MappingUtils.buildOperationOptions(
                         mapItems, moreAttrsToGet.toArray(new String[0]));
 
