@@ -40,5 +40,4 @@ public class DefaultAuthPolicyConf extends AbstractAuthPolicyConf implements Aut
     public List<String> getAuthModules() {
         return authModules;
     }
-
 }

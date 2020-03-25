@@ -63,7 +63,7 @@ import org.apache.syncope.common.lib.to.AuthPolicyTO;
 public class PolicyITCase extends AbstractITCase {
 
     private static AuthPolicyTO buildAuthPolicyTO() {
-        final String authPolicyName = "TestAuthPolicy" + getUUIDString();
+        String authPolicyName = "TestAuthPolicy" + getUUIDString();
         ImplementationTO implementationTO = null;
         try {
             implementationTO = implementationService.read(
