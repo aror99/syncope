@@ -23,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.apache.syncope.common.lib.types.OIDCSubjectType;
-import org.apache.syncope.core.persistence.api.dao.authentication.OIDCRPDAO;
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRP;
+import org.apache.syncope.core.persistence.api.dao.auth.OIDCRPDAO;
+import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
 import org.apache.syncope.core.persistence.api.entity.policy.AccessPolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
 import org.junit.jupiter.api.Test;

@@ -16,16 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.core.persistence.api.entity.auth;
 
 import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import org.apache.syncope.common.lib.types.ClientAppType;
 
-public interface ClientAppDataBinder {
+public interface ClientAppUtilsFactory {
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+    ClientAppUtils getInstance(ClientAppType type);
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
+    ClientAppUtils getInstance(ClientApp clientApp);
 
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    ClientAppUtils getInstance(Class<? extends ClientAppTO> clientAppClass);
+
+    ClientAppUtils getInstance(ClientAppTO clientAppTO);
 }

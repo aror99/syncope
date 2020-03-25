@@ -16,16 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.common.lib.policy;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
-public interface ClientAppDataBinder {
+@XmlType
+@XmlSeeAlso({ AllowedAttrReleasePolicyConf.class })
+public abstract class AbstractAttrReleasePolicyConf implements Serializable, AttrReleasePolicyConf {
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+    private static final long serialVersionUID = 1153200197344709778L;
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
+    private String name;
 
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    public AbstractAttrReleasePolicyConf() {
+        setName(getClass().getName());
+    }
+
+    @Override
+    public final String getName() {
+        return name;
+    }
+
+    public final void setName(final String name) {
+        this.name = name;
+    }
 }

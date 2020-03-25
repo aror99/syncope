@@ -16,16 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.common.lib.policy;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import java.io.Serializable;
 
-public interface ClientAppDataBinder {
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+public interface AuthPolicyConf extends Serializable {
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+    /**
+     * Give name of related authentication policy instance.
+     *
+     * @return name of this authentication policy instance
+     */
+    String getName();
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
-
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    /**
+     * Gets the policy criteria linked to this policy
+     * to establish criteria for success.
+     *
+     * @return the criteria
+     */
+    AuthPolicyCriteriaConf getCriteria();
 }

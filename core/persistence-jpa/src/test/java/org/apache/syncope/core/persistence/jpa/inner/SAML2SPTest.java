@@ -28,8 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.syncope.common.lib.types.SAML2SPNameId;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
-import org.apache.syncope.core.persistence.api.dao.authentication.SAML2SPDAO;
-import org.apache.syncope.core.persistence.api.entity.authentication.SAML2SP;
+import org.apache.syncope.core.persistence.api.dao.auth.SAML2SPDAO;
+import org.apache.syncope.core.persistence.api.entity.auth.SAML2SP;
 
 @Transactional("Master")
 public class SAML2SPTest extends AbstractClientAppTest {

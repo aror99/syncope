@@ -16,16 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.core.persistence.api.dao.auth;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import org.apache.syncope.core.persistence.api.dao.DAO;
+import org.apache.syncope.core.persistence.api.entity.Implementation;
+import java.util.List;
+import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
 
-public interface ClientAppDataBinder {
+public interface AuthModuleDAO extends DAO<AuthModule> {
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+    AuthModule find(String key);
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
+    List<AuthModule> findAll();
 
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    AuthModule save(AuthModule authModule);
+
+    void delete(String key);
+
+    void delete(AuthModule authModule);
+
+    List<AuthModule> findByConfiguration(Implementation configuration);
+
 }

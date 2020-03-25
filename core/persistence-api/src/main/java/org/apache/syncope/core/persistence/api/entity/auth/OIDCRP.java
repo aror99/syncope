@@ -16,16 +16,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.core.persistence.api.entity.auth;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import java.util.List;
+import java.util.Set;
+import org.apache.syncope.common.lib.types.OIDCSubjectType;
 
-public interface ClientAppDataBinder {
+public interface OIDCRP extends ClientApp {
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+    void setClientId(String id);
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
+    String getClientId();
 
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    void setClientSecret(String secret);
+
+    String getClientSecret();
+
+    List<String> getRedirectUris();
+
+    Set<String> getSupportedGrantTypes();
+
+    Set<String> getSupportedResponseTypes();
+
+    boolean isSignIdToken();
+
+    void setSignIdToken(boolean signIdToken);
+
+    String getJwks();
+
+    void setJwks(String jwks);
+
+    OIDCSubjectType getSubjectType();
+
+    void setSubjectType(OIDCSubjectType subjectType);
 }

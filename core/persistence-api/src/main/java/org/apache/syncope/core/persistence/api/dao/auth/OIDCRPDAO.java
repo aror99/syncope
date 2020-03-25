@@ -16,16 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.core.persistence.api.dao.auth;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import org.apache.syncope.core.persistence.api.dao.DAO;
 
-public interface ClientAppDataBinder {
+import java.util.List;
+import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+public interface OIDCRPDAO extends DAO<OIDCRP> {
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
+    OIDCRP find(String key);
 
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    OIDCRP findByName(String name);
+
+    OIDCRP findByClientId(String clientId);
+
+    List<OIDCRP> findAll();
+
+    OIDCRP save(OIDCRP clientApp);
+
+    void delete(String key);
+
+    void deleteByClientId(String clientId);
+
+    void delete(OIDCRP clientApp);
 }

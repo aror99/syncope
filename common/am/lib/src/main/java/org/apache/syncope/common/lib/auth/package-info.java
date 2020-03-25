@@ -16,16 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+@XmlSchema(namespace = SyncopeConstants.NS)
+@XmlJavaTypeAdapters({ @XmlJavaTypeAdapter(type = Date.class, value = DateAdapter.class), })
+package org.apache.syncope.common.lib.auth;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import org.apache.syncope.common.lib.SyncopeConstants;
+import org.apache.syncope.common.lib.jaxb.DateAdapter;
 
-public interface ClientAppDataBinder {
+import javax.xml.bind.annotation.XmlSchema;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
-
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
-
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
-}
+import java.util.Date;

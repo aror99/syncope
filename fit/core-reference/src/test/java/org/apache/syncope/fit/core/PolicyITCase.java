@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.syncope.common.lib.SyncopeClientException;
-import org.apache.syncope.common.lib.access.DefaultAccessPolicyConf;
-import org.apache.syncope.common.lib.attrs.AllowedAttrReleasePolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAccessPolicyConf;
+import org.apache.syncope.common.lib.policy.AllowedAttrReleasePolicyConf;
 import org.apache.syncope.common.lib.policy.AccountPolicyTO;
 import org.apache.syncope.common.lib.policy.DefaultAccountRuleConf;
 import org.apache.syncope.common.lib.policy.DefaultPasswordRuleConf;
@@ -57,7 +57,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
-import org.apache.syncope.common.lib.authentication.policy.DefaultAuthPolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAuthPolicyConf;
 import org.apache.syncope.common.lib.to.AuthPolicyTO;
 
 public class PolicyITCase extends AbstractITCase {

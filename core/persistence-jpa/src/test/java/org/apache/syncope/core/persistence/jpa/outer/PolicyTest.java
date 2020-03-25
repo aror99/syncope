@@ -38,8 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.apache.syncope.core.persistence.api.dao.authentication.OIDCRPDAO;
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRP;
+import org.apache.syncope.core.persistence.api.dao.auth.OIDCRPDAO;
+import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
 
 @Transactional("Master")
 public class PolicyTest extends AbstractClientAppTest {

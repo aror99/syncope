@@ -56,9 +56,9 @@ import org.apache.syncope.core.persistence.api.entity.anyobject.APlainAttrUnique
 import org.apache.syncope.core.persistence.api.entity.anyobject.APlainAttrValue;
 import org.apache.syncope.core.persistence.api.entity.anyobject.ARelationship;
 import org.apache.syncope.core.persistence.api.entity.anyobject.AnyObject;
-import org.apache.syncope.core.persistence.api.entity.authentication.AuthModule;
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRP;
-import org.apache.syncope.core.persistence.api.entity.authentication.SAML2SP;
+import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
+import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
+import org.apache.syncope.core.persistence.api.entity.auth.SAML2SP;
 import org.apache.syncope.core.persistence.api.entity.group.GPlainAttr;
 import org.apache.syncope.core.persistence.api.entity.group.GPlainAttrUniqueValue;
 import org.apache.syncope.core.persistence.api.entity.group.GPlainAttrValue;
@@ -108,9 +108,9 @@ import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAAPlainAttrUni
 import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAAPlainAttrValue;
 import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAARelationship;
 import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAAnyObject;
-import org.apache.syncope.core.persistence.jpa.entity.authentication.JPAAuthModule;
-import org.apache.syncope.core.persistence.jpa.entity.authentication.JPAOIDCRP;
-import org.apache.syncope.core.persistence.jpa.entity.authentication.JPASAML2SP;
+import org.apache.syncope.core.persistence.jpa.entity.auth.JPAAuthModule;
+import org.apache.syncope.core.persistence.jpa.entity.auth.JPAOIDCRP;
+import org.apache.syncope.core.persistence.jpa.entity.auth.JPASAML2SP;
 import org.apache.syncope.core.persistence.jpa.entity.group.JPAGPlainAttr;
 import org.apache.syncope.core.persistence.jpa.entity.group.JPAGPlainAttrUniqueValue;
 import org.apache.syncope.core.persistence.jpa.entity.group.JPAGPlainAttrValue;

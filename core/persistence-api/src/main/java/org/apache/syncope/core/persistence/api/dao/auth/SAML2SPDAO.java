@@ -16,16 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.core.persistence.api.dao.auth;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import org.apache.syncope.core.persistence.api.dao.DAO;
 
-public interface ClientAppDataBinder {
+import java.util.List;
+import org.apache.syncope.core.persistence.api.entity.auth.SAML2SP;
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+public interface SAML2SPDAO extends DAO<SAML2SP> {
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
+    SAML2SP find(String key);
 
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    SAML2SP findByName(String name);
+
+    SAML2SP findByEntityId(String clientId);
+
+    List<SAML2SP> findAll();
+
+    SAML2SP save(SAML2SP clientApp);
+
+    void delete(String key);
+
+    void deleteByEntityId(String entityId);
+
+    void delete(SAML2SP clientApp);
 }

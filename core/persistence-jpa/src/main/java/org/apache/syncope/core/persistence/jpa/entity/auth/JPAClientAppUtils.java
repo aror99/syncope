@@ -16,16 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.core.persistence.jpa.entity.auth;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
+import org.apache.syncope.common.lib.types.ClientAppType;
 import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import org.apache.syncope.core.persistence.api.entity.auth.ClientAppUtils;
+import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
+import org.apache.syncope.core.persistence.api.entity.auth.SAML2SP;
 
-public interface ClientAppDataBinder {
+public class JPAClientAppUtils implements ClientAppUtils {
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+    private final ClientAppType type;
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
+    protected JPAClientAppUtils(final ClientAppType type) {
+        this.type = type;
+    }
 
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
+    @Override
+    public ClientAppType getType() {
+        return type;
+    }
+
+    @Override
+    public Class<? extends ClientApp> clientAppClass() {
+        switch (type) {
+            case OIDCRP:
+                return OIDCRP.class;
+
+            case SAML2SP:
+            default:
+                return SAML2SP.class;
+        }
+    }
 }

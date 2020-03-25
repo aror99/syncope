@@ -16,16 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.common.lib.policy;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.core.persistence.api.entity.auth.ClientApp;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-public interface ClientAppDataBinder {
+@XmlRootElement(name = "DefaultAccessPolicyConf")
+@XmlType
+public class DefaultAccessPolicyConf extends AbstractAccessPolicyConf implements AccessPolicyConf {
 
-    <T extends ClientApp> T create(ClientAppTO clientAppTO);
+    private static final long serialVersionUID = -1969836600059025380L;
 
-    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
-
-    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
 }
