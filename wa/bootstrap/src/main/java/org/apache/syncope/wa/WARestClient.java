@@ -21,6 +21,7 @@ package org.apache.syncope.wa;
 import org.apache.syncope.client.lib.AnonymousAuthenticationHandler;
 import org.apache.syncope.client.lib.SyncopeClient;
 import org.apache.syncope.client.lib.SyncopeClientFactoryBean;
+import org.apache.syncope.common.keymaster.client.api.KeymasterException;
 import org.apache.syncope.common.keymaster.client.api.ServiceOps;
 import org.apache.syncope.common.keymaster.client.api.model.NetworkService;
 import org.slf4j.Logger;
@@ -41,10 +42,10 @@ public class WARestClient {
     private SyncopeClient client;
 
     public WARestClient(
-            final ServiceOps serviceOps,
-            final String anonymousUser,
-            final String anonymousKey,
-            final boolean useGZIPCompression) {
+        final ServiceOps serviceOps,
+        final String anonymousUser,
+        final String anonymousKey,
+        final boolean useGZIPCompression) {
 
         this.serviceOps = serviceOps;
         this.anonymousUser = anonymousUser;
@@ -54,12 +55,12 @@ public class WARestClient {
 
     public SyncopeClient getSyncopeClient() {
         synchronized (this) {
-            if (client == null) {
+            if (client == null && isReady()) {
                 try {
                     client = new SyncopeClientFactoryBean().
-                            setAddress(serviceOps.get(NetworkService.Type.CORE).getAddress()).
-                            setUseCompression(useGZIPCompression).
-                            create(new AnonymousAuthenticationHandler(anonymousUser, anonymousKey));
+                        setAddress(getCore().getAddress()).
+                        setUseCompression(useGZIPCompression).
+                        create(new AnonymousAuthenticationHandler(anonymousUser, anonymousKey));
                 } catch (Exception e) {
                     LOG.error("Could not init SyncopeClient", e);
                 }
@@ -67,5 +68,18 @@ public class WARestClient {
         }
 
         return client;
+    }
+
+    private NetworkService getCore() {
+        return serviceOps.get(NetworkService.Type.CORE);
+    }
+
+    public boolean isReady() {
+        try {
+            return getCore() != null;
+        } catch (KeymasterException e) {
+            LOG.trace(e.getMessage());
+        }
+        return false;
     }
 }
