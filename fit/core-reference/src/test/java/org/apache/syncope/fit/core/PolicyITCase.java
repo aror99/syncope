@@ -252,7 +252,7 @@ public class PolicyITCase extends AbstractITCase {
     @Test
     public void getAuthPolicy() {
         AuthPolicyTO policyTO =
-                policyService.read(PolicyType.AUTHENTICATION, "659b9906-4b6e-4bc0-aca0-6809dff346d4");
+                policyService.read(PolicyType.AUTH, "659b9906-4b6e-4bc0-aca0-6809dff346d4");
 
         assertNotNull(policyTO);
         assertTrue(policyTO.getUsedByRealms().isEmpty());
@@ -286,7 +286,7 @@ public class PolicyITCase extends AbstractITCase {
         assertNotNull(pushPolicyTO);
         assertEquals("TestPushRule", pushPolicyTO.getCorrelationRules().get(AnyTypeKind.USER.name()));
 
-        AuthPolicyTO authPolicyTO = createPolicy(PolicyType.AUTHENTICATION,
+        AuthPolicyTO authPolicyTO = createPolicy(PolicyType.AUTH,
                 buildAuthPolicyTO());
         assertNotNull(authPolicyTO);
         assertEquals("Test Authentication policy", authPolicyTO.getDescription());
@@ -330,7 +330,7 @@ public class PolicyITCase extends AbstractITCase {
     public void updateAuthPolicy() {
         AuthPolicyTO newAuthPolicyTO = buildAuthPolicyTO();
         assertNotNull(newAuthPolicyTO);
-        newAuthPolicyTO = createPolicy(PolicyType.AUTHENTICATION, newAuthPolicyTO);
+        newAuthPolicyTO = createPolicy(PolicyType.AUTH, newAuthPolicyTO);
 
         ImplementationTO authPolicyImplementationTO = implementationService.read(
                 AMImplementationType.AUTH_POLICY_CONFIGURATIONS, "MyDefaultAuthPolicyConf");
@@ -344,8 +344,8 @@ public class PolicyITCase extends AbstractITCase {
         authPolicyImplementationTO.setBody(POJOHelper.serialize(authPolicyConf));
 
         // update new authentication policy
-        policyService.update(PolicyType.AUTHENTICATION, newAuthPolicyTO);
-        newAuthPolicyTO = policyService.read(PolicyType.AUTHENTICATION, newAuthPolicyTO.getKey());
+        policyService.update(PolicyType.AUTH, newAuthPolicyTO);
+        newAuthPolicyTO = policyService.read(PolicyType.AUTH, newAuthPolicyTO.getKey());
         assertNotNull(newAuthPolicyTO);
 
         authPolicyConf = POJOHelper.deserialize(authPolicyImplementationTO.getBody(),
@@ -442,13 +442,13 @@ public class PolicyITCase extends AbstractITCase {
 
         AuthPolicyTO authPolicy = buildAuthPolicyTO();
 
-        AuthPolicyTO authPolicyTO = createPolicy(PolicyType.AUTHENTICATION, authPolicy);
+        AuthPolicyTO authPolicyTO = createPolicy(PolicyType.AUTH, authPolicy);
         assertNotNull(authPolicyTO);
 
-        policyService.delete(PolicyType.AUTHENTICATION, authPolicyTO.getKey());
+        policyService.delete(PolicyType.AUTH, authPolicyTO.getKey());
 
         try {
-            policyService.read(PolicyType.AUTHENTICATION, authPolicyTO.getKey());
+            policyService.read(PolicyType.AUTH, authPolicyTO.getKey());
             fail("This should not happen");
         } catch (SyncopeClientException e) {
             assertNotNull(e);

@@ -21,7 +21,7 @@ package org.apache.syncope.common.lib.authentication.module;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serializable;
 import java.util.List;
-import org.apache.syncope.common.lib.to.ProfileItemTO;
+import org.apache.syncope.common.lib.to.ItemTO;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public interface AuthModuleConf extends Serializable {
@@ -45,5 +45,5 @@ public interface AuthModuleConf extends Serializable {
      *
      * @return list of mapping items
      */
-    List<ProfileItemTO> getProfileItems();
+    List<ItemTO> getProfileItems();
 }

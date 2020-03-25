@@ -18,8 +18,6 @@
  */
 package org.apache.syncope.core.persistence.jpa.entity.authentication;
 
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRelyingParty;
-
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -27,20 +25,20 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.syncope.common.lib.types.OIDCSubjectType;
+import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRP;
 
 @Entity
-@Table(name = JPAOIDCRelyingParty.TABLE)
-public class JPAOIDCRelyingParty extends AbstractClientApp implements OIDCRelyingParty {
-
-    public static final String TABLE = "OIDCRelyingParty";
+@Table(name = JPAOIDCRP.TABLE)
+public class JPAOIDCRP extends AbstractClientApp implements OIDCRP {
 
     private static final long serialVersionUID = 7422422526695279794L;
+
+    public static final String TABLE = "OIDCRP";
 
     @Column(unique = true, nullable = false)
     private String clientId;
@@ -59,21 +57,21 @@ public class JPAOIDCRelyingParty extends AbstractClientApp implements OIDCRelyin
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Column
-    @CollectionTable(name = "OIDCRelyingParty_RedirectUris",
+    @CollectionTable(name = "OIDCRP_RedirectUris",
             joinColumns =
             @JoinColumn(name = "client_id", referencedColumnName = "id"))
     private List<String> redirectUris = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Column
-    @CollectionTable(name = "OIDCRelyingParty_SupportedGrantTypes",
+    @CollectionTable(name = "OIDCRP_SupportedGrantTypes",
             joinColumns =
             @JoinColumn(name = "client_id", referencedColumnName = "id"))
     private Set<String> supportedGrantTypes = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "supportedResponseType")
-    @CollectionTable(name = "OIDCRelyingParty_SupportedResponseTypes",
+    @CollectionTable(name = "OIDCRP_SupportedResponseTypes",
             joinColumns =
             @JoinColumn(name = "client_id", referencedColumnName = "id"))
     private Set<String> supportedResponseTypes = new HashSet<>();
@@ -142,5 +140,4 @@ public class JPAOIDCRelyingParty extends AbstractClientApp implements OIDCRelyin
     public Set<String> getSupportedResponseTypes() {
         return supportedResponseTypes;
     }
-
 }

@@ -25,12 +25,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import org.apache.syncope.common.lib.types.SAML2ServiceProviderNameId;
+import org.apache.syncope.common.lib.types.SAML2SPNameId;
 
-@XmlRootElement(name = "saml2ServiceProvider")
+@XmlRootElement(name = "saml2SP")
 @XmlType
 @Schema(allOf = { ClientAppTO.class })
-public class SAML2ServiceProviderTO extends ClientAppTO {
+public class SAML2SPTO extends ClientAppTO {
 
     private static final long serialVersionUID = -6370888503924521351L;
 
@@ -50,7 +50,7 @@ public class SAML2ServiceProviderTO extends ClientAppTO {
 
     private String requiredAuthenticationContextClass;
 
-    private SAML2ServiceProviderNameId requiredNameIdFormat;
+    private SAML2SPNameId requiredNameIdFormat;
 
     private Integer skewAllowance;
 
@@ -63,7 +63,7 @@ public class SAML2ServiceProviderTO extends ClientAppTO {
     @XmlTransient
     @JsonProperty("@class")
     @Schema(name = "@class", required = true,
-            example = "org.apache.syncope.common.lib.to.client.SAML2ServiceProviderTO")
+            example = "org.apache.syncope.common.lib.to.client.SAML2SPTO")
     @Override
     public String getDiscriminator() {
         return getClass().getName();
@@ -133,11 +133,11 @@ public class SAML2ServiceProviderTO extends ClientAppTO {
         this.requiredAuthenticationContextClass = requiredAuthenticationContextClass;
     }
 
-    public SAML2ServiceProviderNameId getRequiredNameIdFormat() {
+    public SAML2SPNameId getRequiredNameIdFormat() {
         return requiredNameIdFormat;
     }
 
-    public void setRequiredNameIdFormat(final SAML2ServiceProviderNameId requiredNameIdFormat) {
+    public void setRequiredNameIdFormat(final SAML2SPNameId requiredNameIdFormat) {
         this.requiredNameIdFormat = requiredNameIdFormat;
     }
 
@@ -184,7 +184,7 @@ public class SAML2ServiceProviderTO extends ClientAppTO {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        SAML2ServiceProviderTO rhs = (SAML2ServiceProviderTO) obj;
+        SAML2SPTO rhs = (SAML2SPTO) obj;
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
                 .append(this.entityId, rhs.entityId)

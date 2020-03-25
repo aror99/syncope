@@ -18,35 +18,34 @@
  */
 package org.apache.syncope.core.persistence.jpa.inner;
 
-import org.apache.syncope.core.persistence.api.dao.authentication.SAML2ServiceProviderDAO;
-import org.apache.syncope.core.persistence.api.entity.authentication.SAML2ServiceProvider;
-import org.apache.syncope.core.persistence.api.entity.policy.AccessPolicy;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.apache.syncope.common.lib.types.SAML2ServiceProviderNameId;
+import org.apache.syncope.core.persistence.api.entity.policy.AccessPolicy;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.apache.syncope.common.lib.types.SAML2SPNameId;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
+import org.apache.syncope.core.persistence.api.dao.authentication.SAML2SPDAO;
+import org.apache.syncope.core.persistence.api.entity.authentication.SAML2SP;
 
 @Transactional("Master")
-public class SAML2ServiceProviderTest extends AbstractClientAppTest {
+public class SAML2SPTest extends AbstractClientAppTest {
 
     @Autowired
-    private SAML2ServiceProviderDAO saml2ServiceProviderDAO;
+    private SAML2SPDAO saml2spDAO;
 
     @Test
     public void find() {
-        int beforeCount = saml2ServiceProviderDAO.findAll().size();
-        SAML2ServiceProvider rp = entityFactory.newEntity(SAML2ServiceProvider.class);
+        int beforeCount = saml2spDAO.findAll().size();
+        SAML2SP rp = entityFactory.newEntity(SAML2SP.class);
         rp.setName("SAML2");
         rp.setDescription("This is a sample SAML2 SP");
         rp.setEntityId("urn:example:saml2:sp");
         rp.setMetadataLocation("https://example.org/metadata.xml");
-        rp.setRequiredNameIdFormat(SAML2ServiceProviderNameId.EMAIL_ADDRESS);
+        rp.setRequiredNameIdFormat(SAML2SPNameId.EMAIL_ADDRESS);
         rp.setEncryptionOptional(true);
         rp.setEncryptAssertions(true);
 
@@ -56,22 +55,21 @@ public class SAML2ServiceProviderTest extends AbstractClientAppTest {
         AuthPolicy authnPolicy = buildAndSaveAuthPolicy();
         rp.setAuthPolicy(authnPolicy);
 
-        saml2ServiceProviderDAO.save(rp);
+        saml2spDAO.save(rp);
 
         assertNotNull(rp);
         assertNotNull(rp.getKey());
 
-        int afterCount = saml2ServiceProviderDAO.findAll().size();
+        int afterCount = saml2spDAO.findAll().size();
         assertEquals(afterCount, beforeCount + 1);
 
-        rp = saml2ServiceProviderDAO.findByEntityId(rp.getEntityId());
+        rp = saml2spDAO.findByEntityId(rp.getEntityId());
         assertNotNull(rp);
 
-        rp = saml2ServiceProviderDAO.findByName(rp.getName());
+        rp = saml2spDAO.findByName(rp.getName());
         assertNotNull(rp);
 
-        saml2ServiceProviderDAO.deleteByEntityId(rp.getEntityId());
-        assertNull(saml2ServiceProviderDAO.findByName(rp.getName()));
+        saml2spDAO.deleteByEntityId(rp.getEntityId());
+        assertNull(saml2spDAO.findByName(rp.getName()));
     }
-
 }

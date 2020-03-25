@@ -34,7 +34,7 @@ public enum PolicyType {
     /**
      * How authentication policies should look like.
      */
-    AUTHENTICATION,
+    AUTH,
     /**
      * How attribute release policies should look like.
      */

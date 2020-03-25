@@ -16,15 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.common.lib.types;
+package org.apache.syncope.core.persistence.api.dao.authentication;
 
-public final class AuthPolicyType {
+import org.apache.syncope.core.persistence.api.dao.DAO;
 
-    public static final String AUTHENTICATION_POLICY_BPM = "AUTHENTICATION_POLICY_BPM";
+import java.util.List;
+import org.apache.syncope.core.persistence.api.entity.authentication.SAML2SP;
 
-    public static final String AUTHENTICATION_POLICY_CHAIN = "AUTHENTICATION_POLICY_CHAIN";
+public interface SAML2SPDAO extends DAO<SAML2SP> {
 
-    private AuthPolicyType() {
-        // private constructor for static utility class
-    }
+    SAML2SP find(String key);
+
+    SAML2SP findByName(String name);
+
+    SAML2SP findByEntityId(String clientId);
+
+    List<SAML2SP> findAll();
+
+    SAML2SP save(SAML2SP clientApp);
+
+    void delete(String key);
+
+    void deleteByEntityId(String entityId);
+
+    void delete(SAML2SP clientApp);
 }

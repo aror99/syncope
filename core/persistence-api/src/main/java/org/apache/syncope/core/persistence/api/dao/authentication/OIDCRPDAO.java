@@ -16,10 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.common.lib.to;
+package org.apache.syncope.core.persistence.api.dao.authentication;
 
-public class ProfileItemTO extends ItemTO {
+import org.apache.syncope.core.persistence.api.dao.DAO;
 
-    private static final long serialVersionUID = 5308969043827855713L;
+import java.util.List;
+import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRP;
 
+public interface OIDCRPDAO extends DAO<OIDCRP> {
+
+    OIDCRP find(String key);
+
+    OIDCRP findByName(String name);
+
+    OIDCRP findByClientId(String clientId);
+
+    List<OIDCRP> findAll();
+
+    OIDCRP save(OIDCRP clientApp);
+
+    void delete(String key);
+
+    void deleteByClientId(String clientId);
+
+    void delete(OIDCRP clientApp);
 }

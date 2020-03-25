@@ -16,16 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.common.lib.types;
 
-import org.apache.syncope.common.lib.to.client.OIDCRelyingPartyTO;
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRelyingParty;
+import javax.xml.bind.annotation.XmlEnum;
 
-public interface OIDCRelyingPartyDataBinder {
+@XmlEnum
+public enum SAML2SPNameId {
 
-    OIDCRelyingParty create(OIDCRelyingPartyTO applicationTO);
+    EMAIL_ADDRESS("urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"),
+    UNSPECIFIED("urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"),
+    ENTITY("urn:oasis:names:tc:SAML:2.0:nameid-format:entity"),
+    PERSISTENT("urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"),
+    TRANSIENT("urn:oasis:names:tc:SAML:2.0:nameid-format:transient"),
+    ENCRYPTED("urn:oasis:names:tc:SAML:2.0:nameid-format:encrypted");
 
-    OIDCRelyingParty update(OIDCRelyingParty application, OIDCRelyingPartyTO applicationTO);
+    private final String nameId;
 
-    OIDCRelyingPartyTO getClientApplicationTO(OIDCRelyingParty application);
+    SAML2SPNameId(final String nameId) {
+        this.nameId = nameId;
+    }
+
+    public String getNameId() {
+        return nameId;
+    }
 }

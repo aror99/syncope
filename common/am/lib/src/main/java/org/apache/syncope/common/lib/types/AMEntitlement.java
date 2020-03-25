@@ -34,33 +34,27 @@ public final class AMEntitlement {
 
     public static final String GATEWAY_ROUTE_PUSH = "GATEWAY_ROUTE_PUSH";
 
-    public static final String AUTHENTICATION_MODULE_READ = "AUTHENTICATION_MODULE_READ";
+    public static final String AUTHMODULE_READ = "AUTHMODULE_READ";
 
-    public static final String AUTHENTICATION_MODULE_LIST = "AUTHENTICATION_MODULE_LIST";
+    public static final String AUTHMODULE_LIST = "AUTHMODULE_LIST";
 
-    public static final String AUTHENTICATION_MODULE_CREATE = "AUTHENTICATION_MODULE_CREATE";
+    public static final String AUTHMODULE_CREATE = "AUTHMODULE_CREATE";
 
-    public static final String AUTHENTICATION_MODULE_UPDATE = "AUTHENTICATION_MODULE_UPDATE";
+    public static final String AUTHMODULE_UPDATE = "AUTHMODULE_CREATE";
 
-    public static final String AUTHENTICATION_MODULE_DELETE = "AUTHENTICATION_MODULE_DELETE";
+    public static final String AUTHMODULE_DELETE = "AUTHMODULE_DELETE";
+
+    public static final String CLIENTAPP_READ = "CLIENTAPP_READ";
+
+    public static final String CLIENTAPP_LIST = "CLIENTAPP_LIST";
+
+    public static final String CLIENTAPP_CREATE = "CLIENTAPP_CREATE";
+
+    public static final String CLIENTAPP_UPDATE = "CLIENTAPP_CREATE";
+
+    public static final String CLIENTAPP_DELETE = "CLIENTAPP_DELETE";
 
     private static final Set<String> VALUES;
-
-    public static final String SAML2_SERVICE_PROVIDER_READ = "OIDC_RELYING_PARTY_READ";
-
-    public static final String OIDC_RELYING_PARTY_DELETE = "OIDC_RELYING_PARTY_DELETE";
-
-    public static final String OIDC_RELYING_PARTY_READ = "OIDC_RELYING_PARTY_READ";
-
-    public static final String SAML2_SERVICE_PROVIDER_LIST = "SAML2_SERVICE_PROVIDER_LIST";
-
-    public static final String OIDC_RELYING_PARTY_CREATE = "OIDC_RELYING_PARTY_CREATE";
-
-    public static final String SAML2_SERVICE_PROVIDER_DELETE = "SAML2_SERVICE_PROVIDER_DELETE";
-
-    public static final String OIDC_RELYING_PARTY_LIST = "OIDC_RELYING_PARTY_LIST";
-
-    public static final String SAML2_SERVICE_PROVIDER_CREATE = "SAML2_SERVICE_PROVIDER_CREATE";
 
     static {
         Set<String> values = new TreeSet<>();

@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import org.apache.syncope.common.lib.types.OIDCSubjectType;
 
-@XmlRootElement(name = "oidcRelyingParty")
+@XmlRootElement(name = "oidcrp")
 @XmlType
 @Schema(allOf = { ClientAppTO.class })
-public class OIDCRelyingPartyTO extends ClientAppTO {
+public class OIDCRPTO extends ClientAppTO {
 
     private static final long serialVersionUID = -6370888503924521351L;
 
@@ -59,7 +59,7 @@ public class OIDCRelyingPartyTO extends ClientAppTO {
     @XmlTransient
     @JsonProperty("@class")
     @Schema(name = "@class", required = true,
-            example = "org.apache.syncope.common.lib.to.client.OIDCRelyingPartyTO")
+            example = "org.apache.syncope.common.lib.to.client.OIDCRPTO")
     @Override
     public String getDiscriminator() {
         return getClass().getName();
@@ -137,7 +137,7 @@ public class OIDCRelyingPartyTO extends ClientAppTO {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        OIDCRelyingPartyTO rhs = (OIDCRelyingPartyTO) obj;
+        OIDCRPTO rhs = (OIDCRPTO) obj;
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
                 .append(this.clientId, rhs.clientId)

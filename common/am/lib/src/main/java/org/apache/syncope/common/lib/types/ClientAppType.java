@@ -16,29 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.persistence.api.dao.authentication;
+package org.apache.syncope.common.lib.types;
 
-import org.apache.syncope.core.persistence.api.dao.DAO;
-import org.apache.syncope.core.persistence.api.entity.authentication.SAML2ServiceProvider;
+import javax.xml.bind.annotation.XmlEnum;
 
-import java.util.List;
-
-public interface SAML2ServiceProviderDAO extends DAO<SAML2ServiceProvider> {
-
-    SAML2ServiceProvider find(String key);
-
-    SAML2ServiceProvider findByName(String name);
-
-    SAML2ServiceProvider findByEntityId(String clientId);
-
-    List<SAML2ServiceProvider> findAll();
-
-    SAML2ServiceProvider save(SAML2ServiceProvider application);
-
-    void delete(String key);
-
-    void deleteByEntityId(String entityId);
-
-    void delete(SAML2ServiceProvider application);
+@XmlEnum
+public enum ClientAppType {
+    SAML2SP,
+    OIDCRP;
 
 }

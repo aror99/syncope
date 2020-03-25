@@ -53,8 +53,8 @@ public class JPAPolicyUtils implements PolicyUtils {
 
             case PULL:
                 return PullPolicy.class;
-                
-            case AUTHENTICATION:
+
+            case AUTH:
                 return AuthPolicy.class;
 
             case ATTR_RELEASE:
@@ -68,5 +68,4 @@ public class JPAPolicyUtils implements PolicyUtils {
                 return PushPolicy.class;
         }
     }
-
 }

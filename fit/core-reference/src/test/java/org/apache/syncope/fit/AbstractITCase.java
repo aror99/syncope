@@ -70,12 +70,10 @@ import org.apache.syncope.common.lib.to.ResourceTO;
 import org.apache.syncope.common.lib.to.GroupTO;
 import org.apache.syncope.common.lib.to.MembershipTO;
 import org.apache.syncope.common.lib.to.NotificationTO;
-import org.apache.syncope.common.lib.to.client.OIDCRelyingPartyTO;
 import org.apache.syncope.common.lib.to.ProvisioningResult;
 import org.apache.syncope.common.lib.to.ReportTO;
 import org.apache.syncope.common.lib.to.RoleTO;
 import org.apache.syncope.common.lib.to.UserTO;
-import org.apache.syncope.common.lib.to.client.SAML2ServiceProviderTO;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 import org.apache.syncope.common.lib.types.PatchOperation;
 import org.apache.syncope.common.lib.types.PolicyType;
@@ -562,28 +560,6 @@ public abstract class AbstractITCase {
             }
         }
         return (T) getObject(response.getLocation(), PolicyService.class, policy.getClass());
-    }
-
-    protected OIDCRelyingPartyTO createOIDCRelyingParty(final OIDCRelyingPartyTO rpTO) {
-        Response response = clientAppService.create(rpTO);
-        if (response.getStatusInfo().getStatusCode() != Response.Status.CREATED.getStatusCode()) {
-            Exception ex = clientFactory.getExceptionMapper().fromResponse(response);
-            if (ex != null) {
-                throw (RuntimeException) ex;
-            }
-        }
-        return getObject(response.getLocation(), ClientAppService.class, OIDCRelyingPartyTO.class);
-    }
-
-    protected SAML2ServiceProviderTO createSAML2SP(final SAML2ServiceProviderTO saml2spTO) {
-        Response response = clientAppService.create(saml2spTO);
-        if (response.getStatusInfo().getStatusCode() != Response.Status.CREATED.getStatusCode()) {
-            Exception ex = clientFactory.getExceptionMapper().fromResponse(response);
-            if (ex != null) {
-                throw (RuntimeException) ex;
-            }
-        }
-        return getObject(response.getLocation(), ClientAppService.class, SAML2ServiceProviderTO.class);
     }
 
     protected ResourceTO createResource(final ResourceTO resourceTO) {

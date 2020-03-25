@@ -41,7 +41,7 @@ import java.util.UUID;
 import org.apache.syncope.core.persistence.api.entity.authentication.AuthModule;
 import org.apache.syncope.common.lib.authentication.module.AuthModuleConf;
 import org.apache.syncope.common.lib.authentication.module.OIDCAuthModuleConf;
-import org.apache.syncope.common.lib.to.ProfileItemTO;
+import org.apache.syncope.common.lib.to.ItemTO;
 import org.apache.syncope.core.persistence.api.dao.authentication.AuthModuleDAO;
 
 @Transactional("Master")
@@ -113,10 +113,10 @@ public class AuthModuleTest extends AbstractTest {
         conf.setUserIdAttribute("uid");
         conf.setBaseDn("cn=Directory Manager,dc=example,dc=org");
         conf.setBindCredential("Password");
-        ProfileItemTO keyMapping = new ProfileItemTO();
+        ItemTO keyMapping = new ItemTO();
         keyMapping.setIntAttrName("uid");
         keyMapping.setExtAttrName("username");
-        ProfileItemTO fullnameMapping = new ProfileItemTO();
+        ItemTO fullnameMapping = new ItemTO();
         fullnameMapping.setIntAttrName("cn");
         fullnameMapping.setExtAttrName("fullname");
         conf.getProfileItems().addAll(List.of(fullnameMapping, keyMapping));
@@ -156,7 +156,7 @@ public class AuthModuleTest extends AbstractTest {
         conf.setUserIdAttribute("username");
         conf.setResponseType("code");
         conf.setScope("openid email profile");
-        ProfileItemTO keyMapping = new ProfileItemTO();
+        ItemTO keyMapping = new ItemTO();
         keyMapping.setIntAttrName("uid");
         keyMapping.setExtAttrName("username");
         conf.getProfileItems().add(keyMapping);

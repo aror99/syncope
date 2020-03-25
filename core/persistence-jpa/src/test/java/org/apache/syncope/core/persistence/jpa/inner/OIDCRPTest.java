@@ -18,31 +18,30 @@
  */
 package org.apache.syncope.core.persistence.jpa.inner;
 
-import org.apache.syncope.core.persistence.api.dao.authentication.OIDCRelyingPartyDAO;
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRelyingParty;
-import org.apache.syncope.core.persistence.api.entity.policy.AccessPolicy;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.apache.syncope.common.lib.types.OIDCSubjectType;
+import org.apache.syncope.core.persistence.api.dao.authentication.OIDCRPDAO;
+import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRP;
+import org.apache.syncope.core.persistence.api.entity.policy.AccessPolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional("Master")
-public class OIDCRelyingPartyTest extends AbstractClientAppTest {
+public class OIDCRPTest extends AbstractClientAppTest {
 
     @Autowired
-    private OIDCRelyingPartyDAO oidcRelyingPartyDAO;
+    private OIDCRPDAO oidcrpDAO;
 
     @Test
     public void find() {
-        int beforeCount = oidcRelyingPartyDAO.findAll().size();
+        int beforeCount = oidcrpDAO.findAll().size();
 
-        OIDCRelyingParty rp = entityFactory.newEntity(OIDCRelyingParty.class);
+        OIDCRP rp = entityFactory.newEntity(OIDCRP.class);
         rp.setName("OIDC");
         rp.setDescription("This is a sample OIDC RP");
         rp.setClientId("clientid");
@@ -57,23 +56,22 @@ public class OIDCRelyingPartyTest extends AbstractClientAppTest {
         AuthPolicy authPolicy = buildAndSaveAuthPolicy();
         rp.setAuthPolicy(authPolicy);
 
-        oidcRelyingPartyDAO.save(rp);
+        oidcrpDAO.save(rp);
 
         assertNotNull(rp);
         assertNotNull(rp.getKey());
 
-        int afterCount = oidcRelyingPartyDAO.findAll().size();
+        int afterCount = oidcrpDAO.findAll().size();
         assertEquals(afterCount, beforeCount + 1);
 
-        rp = oidcRelyingPartyDAO.findByClientId("clientid");
+        rp = oidcrpDAO.findByClientId("clientid");
         assertNotNull(rp);
         assertNotNull(rp.getAuthPolicy());
 
-        rp = oidcRelyingPartyDAO.findByName("OIDC");
+        rp = oidcrpDAO.findByName("OIDC");
         assertNotNull(rp);
 
-        oidcRelyingPartyDAO.deleteByClientId("clientid");
-        assertNull(oidcRelyingPartyDAO.findByName("OIDC"));
+        oidcrpDAO.deleteByClientId("clientid");
+        assertNull(oidcrpDAO.findByName("OIDC"));
     }
-
 }

@@ -16,29 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.persistence.api.dao.authentication;
+package org.apache.syncope.core.persistence.api.entity.authentication;
 
-import org.apache.syncope.core.persistence.api.dao.DAO;
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRelyingParty;
+import org.apache.syncope.common.lib.types.ClientAppType;
 
-import java.util.List;
+public interface ClientAppUtils {
 
-public interface OIDCRelyingPartyDAO extends DAO<OIDCRelyingParty> {
+    ClientAppType getType();
 
-    OIDCRelyingParty find(String key);
-
-    OIDCRelyingParty findByName(String name);
-
-    OIDCRelyingParty findByClientId(String clientId);
-
-    List<OIDCRelyingParty> findAll();
-
-    OIDCRelyingParty save(OIDCRelyingParty application);
-
-    void delete(String key);
-
-    void deleteByClientId(String clientId);
-
-    void delete(OIDCRelyingParty application);
-
+    Class<? extends ClientApp> clientAppClass();
 }

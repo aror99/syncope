@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import org.apache.syncope.common.lib.to.ProfileItemTO;
+import org.apache.syncope.common.lib.to.ItemTO;
 
 @XmlType
 @XmlSeeAlso({ JaasAuthModuleConf.class, StaticAuthModuleConf.class, LDAPAuthModuleConf.class, OIDCAuthModuleConf.class,
@@ -39,7 +39,7 @@ public abstract class AbstractAuthModuleConf implements Serializable, AuthModule
 
     private int order;
 
-    private List<ProfileItemTO> profileItems = new ArrayList<>();
+    private List<ItemTO> profileItems = new ArrayList<>();
 
     public AbstractAuthModuleConf() {
         setName(getClass().getName());
@@ -67,7 +67,7 @@ public abstract class AbstractAuthModuleConf implements Serializable, AuthModule
     @XmlElement(name = "profileItem")
     @JsonProperty("profileItems")
     @Override
-    public List<ProfileItemTO> getProfileItems() {
+    public List<ItemTO> getProfileItems() {
         return profileItems;
     }
 

@@ -16,16 +16,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.provisioning.api.data;
+package org.apache.syncope.core.persistence.api.entity.authentication;
 
-import org.apache.syncope.common.lib.to.client.SAML2ServiceProviderTO;
-import org.apache.syncope.core.persistence.api.entity.authentication.SAML2ServiceProvider;
+import java.util.List;
+import java.util.Set;
+import org.apache.syncope.common.lib.types.OIDCSubjectType;
 
-public interface SAML2ServiceProviderDataBinder {
+public interface OIDCRP extends ClientApp {
 
-    SAML2ServiceProvider create(SAML2ServiceProviderTO applicationTO);
+    void setClientId(String id);
 
-    SAML2ServiceProvider update(SAML2ServiceProvider application, SAML2ServiceProviderTO applicationTO);
+    String getClientId();
 
-    SAML2ServiceProviderTO getClientApplicationTO(SAML2ServiceProvider application);
+    void setClientSecret(String secret);
+
+    String getClientSecret();
+
+    List<String> getRedirectUris();
+
+    Set<String> getSupportedGrantTypes();
+
+    Set<String> getSupportedResponseTypes();
+
+    boolean isSignIdToken();
+
+    void setSignIdToken(boolean signIdToken);
+
+    String getJwks();
+
+    void setJwks(String jwks);
+
+    OIDCSubjectType getSubjectType();
+
+    void setSubjectType(OIDCSubjectType subjectType);
 }

@@ -18,6 +18,8 @@
  */
 package org.apache.syncope.wa.bootstrap;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.syncope.common.keymaster.client.api.ServiceOps;
 import org.apache.syncope.common.keymaster.client.self.SelfKeymasterClientContext;
 import org.apache.syncope.common.keymaster.client.zookeper.ZookeeperKeymasterClientContext;
@@ -31,17 +33,14 @@ import org.springframework.cloud.bootstrap.config.PropertySourceLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.MapPropertySource;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Configuration(proxyBeanMethods = false)
-@ImportAutoConfiguration(classes = {ZookeeperKeymasterClientContext.class, SelfKeymasterClientContext.class})
+@ImportAutoConfiguration(classes = { ZookeeperKeymasterClientContext.class, SelfKeymasterClientContext.class })
 @PropertySource("classpath:wa.properties")
 @PropertySource(value = "file:${conf.directory}/wa.properties", ignoreResourceNotFound = true)
 public class RestfulCloudConfigBootstrapConfiguration {
+
     private static final Logger LOG = LoggerFactory.getLogger(RestfulCloudConfigBootstrapConfiguration.class);
 
     @Value("${anonymousUser}")
@@ -62,16 +61,14 @@ public class RestfulCloudConfigBootstrapConfiguration {
     @Autowired
     @Bean
     public PropertySourceLocator configPropertySourceLocator(final WARestClient waRestClient) {
-        return new PropertySourceLocator() {
-            @Override
-            public org.springframework.core.env.PropertySource<?> locate(final Environment environment) {
-                try {
-                    LOG.info("Bootstrapping WA configuration");
-                    Map<String, Object> payload = new HashMap<>();
-                    return new MapPropertySource(getClass().getName(), payload);
-                } catch (Exception e) {
-                    throw new IllegalArgumentException("Unable to fetch settings", e);
-                }
+        return environment -> {
+            try {
+                LOG.info("Bootstrapping WA configuration");
+
+                Map<String, Object> payload = new HashMap<>();
+                return new MapPropertySource(getClass().getName(), payload);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Unable to fetch settings", e);
             }
         };
     }

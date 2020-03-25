@@ -16,28 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.common.lib.types;
+package org.apache.syncope.core.provisioning.api.data;
 
-import javax.xml.bind.annotation.XmlEnum;
+import org.apache.syncope.common.lib.to.client.ClientAppTO;
+import org.apache.syncope.core.persistence.api.entity.authentication.ClientApp;
 
-@XmlEnum
-public enum SAML2ServiceProviderNameId {
+public interface ClientAppDataBinder {
 
-    EMAIL_ADDRESS("urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"),
-    UNSPECIFIED("urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"),
-    ENTITY("urn:oasis:names:tc:SAML:2.0:nameid-format:entity"),
-    PERSISTENT("urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"),
-    TRANSIENT("urn:oasis:names:tc:SAML:2.0:nameid-format:transient"),
-    ENCRYPTED("urn:oasis:names:tc:SAML:2.0:nameid-format:encrypted");
+    <T extends ClientApp> T create(ClientAppTO clientAppTO);
 
-    private final String nameId;
+    <T extends ClientApp> void update(T clientApp, ClientAppTO clientAppTO);
 
-    SAML2ServiceProviderNameId(final String nameId) {
-        this.nameId = nameId;
-    }
-
-    public String getNameId() {
-        return nameId;
-    }
-
+    <T extends ClientAppTO> T getClientAppTO(ClientApp clientApp);
 }

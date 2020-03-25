@@ -7,7 +7,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -15,40 +15,19 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *
  */
 package org.apache.syncope.core.persistence.api.entity.authentication;
 
-import java.util.List;
-import java.util.Set;
-import org.apache.syncope.common.lib.types.OIDCSubjectType;
+import org.apache.syncope.common.lib.to.client.ClientAppTO;
+import org.apache.syncope.common.lib.types.ClientAppType;
 
-public interface OIDCRelyingParty extends ClientApp {
+public interface ClientAppUtilsFactory {
 
-    void setClientId(String id);
+    ClientAppUtils getInstance(ClientAppType type);
 
-    String getClientId();
+    ClientAppUtils getInstance(ClientApp clientApp);
 
-    void setClientSecret(String secret);
+    ClientAppUtils getInstance(Class<? extends ClientAppTO> clientAppClass);
 
-    String getClientSecret();
-
-    List<String> getRedirectUris();
-
-    Set<String> getSupportedGrantTypes();
-
-    Set<String> getSupportedResponseTypes();
-
-    boolean isSignIdToken();
-
-    void setSignIdToken(boolean signIdToken);
-
-    String getJwks();
-
-    void setJwks(String jwks);
-
-    OIDCSubjectType getSubjectType();
-
-    void setSubjectType(OIDCSubjectType subjectType);
-
+    ClientAppUtils getInstance(ClientAppTO clientAppTO);
 }

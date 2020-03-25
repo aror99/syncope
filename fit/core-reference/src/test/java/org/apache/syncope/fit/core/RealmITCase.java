@@ -227,7 +227,7 @@ public class RealmITCase extends AbstractITCase {
         AuthPolicyTO policy = new AuthPolicyTO();
         policy.setDescription("Test Authentication policy");
         policy.setKey(rule.getKey());
-        policy = createPolicy(PolicyType.AUTHENTICATION, policy);
+        policy = createPolicy(PolicyType.AUTH, policy);
         assertNotNull(policy);
 
         // 2. create realm with policy assigned
@@ -252,7 +252,7 @@ public class RealmITCase extends AbstractITCase {
         assertEquals(policy.getKey(), actual.getAuthPolicy());
 
         // 3. remove policy
-        policyService.delete(PolicyType.AUTHENTICATION, policy.getKey());
+        policyService.delete(PolicyType.AUTH, policy.getKey());
 
         // 4. verify
         actual = getRealm(actual.getFullPath()).get();

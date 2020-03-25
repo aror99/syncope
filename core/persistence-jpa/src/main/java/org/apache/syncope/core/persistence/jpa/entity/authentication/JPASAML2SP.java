@@ -18,17 +18,17 @@
  */
 package org.apache.syncope.core.persistence.jpa.entity.authentication;
 
-import org.apache.syncope.core.persistence.api.entity.authentication.SAML2ServiceProvider;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.apache.syncope.common.lib.types.SAML2ServiceProviderNameId;
+import org.apache.syncope.common.lib.types.SAML2SPNameId;
+import org.apache.syncope.core.persistence.api.entity.authentication.SAML2SP;
 
 @Entity
-@Table(name = JPASAML2ServiceProvider.TABLE)
-public class JPASAML2ServiceProvider extends AbstractClientApp implements SAML2ServiceProvider {
+@Table(name = JPASAML2SP.TABLE)
+public class JPASAML2SP extends AbstractClientApp implements SAML2SP {
 
-    public static final String TABLE = "SAML2ServiceProvider";
+    public static final String TABLE = "SAML2SP";
 
     private static final long serialVersionUID = 6422422526695279794L;
 
@@ -57,7 +57,7 @@ public class JPASAML2ServiceProvider extends AbstractClientApp implements SAML2S
     private String requiredAuthenticationContextClass;
 
     @Column
-    private SAML2ServiceProviderNameId requiredNameIdFormat;
+    private SAML2SPNameId requiredNameIdFormat;
 
     @Column
     private Integer skewAllowance;
@@ -152,12 +152,12 @@ public class JPASAML2ServiceProvider extends AbstractClientApp implements SAML2S
     }
 
     @Override
-    public SAML2ServiceProviderNameId getRequiredNameIdFormat() {
+    public SAML2SPNameId getRequiredNameIdFormat() {
         return requiredNameIdFormat;
     }
 
     @Override
-    public void setRequiredNameIdFormat(final SAML2ServiceProviderNameId requiredNameIdFormat) {
+    public void setRequiredNameIdFormat(final SAML2SPNameId requiredNameIdFormat) {
         this.requiredNameIdFormat = requiredNameIdFormat;
     }
 
