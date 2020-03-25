@@ -303,7 +303,6 @@ under the License.
           <groupId>org.apache.syncope.common.keymaster</groupId>
           <artifactId>syncope-common-keymaster-client-zookeeper</artifactId>
           <version>${project.version}</version>
-          <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.curator</groupId>
