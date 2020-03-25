@@ -22,27 +22,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.apache.syncope.common.lib.authentication.module.GoogleMfaAuthModuleConf;
-import org.apache.syncope.common.lib.authentication.module.JaasAuthModuleConf;
-import org.apache.syncope.common.lib.authentication.module.LDAPAuthModuleConf;
-import org.apache.syncope.common.lib.authentication.module.StaticAuthModuleConf;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import org.apache.syncope.common.lib.auth.AuthModuleConf;
+import org.apache.syncope.common.lib.auth.GoogleMfaAuthModuleConf;
+import org.apache.syncope.common.lib.auth.JaasAuthModuleConf;
+import org.apache.syncope.common.lib.auth.LDAPAuthModuleConf;
+import org.apache.syncope.common.lib.auth.OIDCAuthModuleConf;
+import org.apache.syncope.common.lib.auth.StaticAuthModuleConf;
+import org.apache.syncope.common.lib.to.ItemTO;
 import org.apache.syncope.common.lib.types.AMImplementationType;
 import org.apache.syncope.common.lib.types.ImplementationEngine;
 import org.apache.syncope.core.persistence.api.dao.ImplementationDAO;
+import org.apache.syncope.core.persistence.api.dao.auth.AuthModuleDAO;
 import org.apache.syncope.core.persistence.api.entity.Implementation;
+import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
 import org.apache.syncope.core.persistence.jpa.AbstractTest;
 import org.apache.syncope.core.provisioning.api.serialization.POJOHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import org.apache.syncope.core.persistence.api.entity.authentication.AuthModule;
-import org.apache.syncope.common.lib.authentication.module.AuthModuleConf;
-import org.apache.syncope.common.lib.authentication.module.OIDCAuthModuleConf;
-import org.apache.syncope.common.lib.to.ProfileItemTO;
-import org.apache.syncope.core.persistence.api.dao.authentication.AuthModuleDAO;
 
 @Transactional("Master")
 public class AuthModuleTest extends AbstractTest {
@@ -55,8 +55,7 @@ public class AuthModuleTest extends AbstractTest {
 
     @Test
     public void find() {
-        AuthModule module = authModuleDAO.find(
-                "be456831-593d-4003-b273-4c3fb61700df");
+        AuthModule module = authModuleDAO.find("be456831-593d-4003-b273-4c3fb61700df");
         assertNotNull(module);
 
         module = authModuleDAO.find(UUID.randomUUID().toString());
@@ -72,8 +71,7 @@ public class AuthModuleTest extends AbstractTest {
 
     @Test
     public void saveWithPredefinedModule() {
-        StaticAuthModuleConf conf =
-                new StaticAuthModuleConf(Map.of("user", UUID.randomUUID().toString()));
+        StaticAuthModuleConf conf = new StaticAuthModuleConf(Map.of("user", UUID.randomUUID().toString()));
 
         Implementation config = getImplementation(conf);
 
@@ -113,10 +111,10 @@ public class AuthModuleTest extends AbstractTest {
         conf.setUserIdAttribute("uid");
         conf.setBaseDn("cn=Directory Manager,dc=example,dc=org");
         conf.setBindCredential("Password");
-        ProfileItemTO keyMapping = new ProfileItemTO();
+        ItemTO keyMapping = new ItemTO();
         keyMapping.setIntAttrName("uid");
         keyMapping.setExtAttrName("username");
-        ProfileItemTO fullnameMapping = new ProfileItemTO();
+        ItemTO fullnameMapping = new ItemTO();
         fullnameMapping.setIntAttrName("cn");
         fullnameMapping.setExtAttrName("fullname");
         conf.getProfileItems().addAll(List.of(fullnameMapping, keyMapping));
@@ -156,7 +154,7 @@ public class AuthModuleTest extends AbstractTest {
         conf.setUserIdAttribute("username");
         conf.setResponseType("code");
         conf.setScope("openid email profile");
-        ProfileItemTO keyMapping = new ProfileItemTO();
+        ItemTO keyMapping = new ItemTO();
         keyMapping.setIntAttrName("uid");
         keyMapping.setExtAttrName("username");
         conf.getProfileItems().add(keyMapping);
@@ -201,5 +199,4 @@ public class AuthModuleTest extends AbstractTest {
         authModule = authModuleDAO.find("be456831-593d-4003-b273-4c3fb61700df");
         assertNull(authModule);
     }
-
 }

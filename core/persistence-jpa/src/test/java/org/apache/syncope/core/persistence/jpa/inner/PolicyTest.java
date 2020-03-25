@@ -18,10 +18,10 @@
  */
 package org.apache.syncope.core.persistence.jpa.inner;
 
-import org.apache.syncope.common.lib.access.DefaultAccessPolicyConf;
-import org.apache.syncope.common.lib.attrs.AllowedAttrReleasePolicyConf;
-import org.apache.syncope.common.lib.authentication.policy.DefaultAuthPolicyConf;
-import org.apache.syncope.common.lib.authentication.policy.DefaultAuthPolicyCriteriaConf;
+import org.apache.syncope.common.lib.policy.DefaultAccessPolicyConf;
+import org.apache.syncope.common.lib.policy.AllowedAttrReleasePolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAuthPolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAuthPolicyCriteriaConf;
 import org.apache.syncope.common.lib.policy.DefaultPasswordRuleConf;
 import org.apache.syncope.common.lib.policy.DefaultPullCorrelationRuleConf;
 import org.apache.syncope.common.lib.policy.DefaultPushCorrelationRuleConf;

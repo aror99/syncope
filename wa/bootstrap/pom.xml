@@ -43,6 +43,7 @@ under the License.
       <artifactId>syncope-client-am-lib</artifactId>
       <version>${project.version}</version>
     </dependency>
+
     <dependency>
       <groupId>org.apache.syncope.common.keymaster</groupId>
       <artifactId>syncope-common-keymaster-client-zookeeper</artifactId>
@@ -58,6 +59,7 @@ under the License.
       <artifactId>syncope-ext-self-keymaster-client</artifactId>
       <version>${project.version}</version>
     </dependency>
+
     <dependency>
       <groupId>org.apereo.cas</groupId>
       <artifactId>cas-server-core-configuration-api</artifactId>

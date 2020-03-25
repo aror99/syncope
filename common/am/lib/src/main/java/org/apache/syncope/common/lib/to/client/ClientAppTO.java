@@ -31,11 +31,11 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "clientApp")
 @XmlType
-@XmlSeeAlso({ OIDCRelyingPartyTO.class, SAML2ServiceProviderTO.class })
+@XmlSeeAlso({ OIDCRPTO.class, SAML2SPTO.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "@class")
 @JsonPropertyOrder(value = { "@class", "key", "name", "description",
     "authPolicy", "accessPolicy", "attReleasePolicy" })
-@Schema(subTypes = { OIDCRelyingPartyTO.class, SAML2ServiceProviderTO.class }, discriminatorProperty = "@class")
+@Schema(subTypes = { OIDCRPTO.class, SAML2SPTO.class }, discriminatorProperty = "@class")
 public abstract class ClientAppTO extends BaseBean implements EntityTO {
 
     private static final long serialVersionUID = 6577639976115661357L;

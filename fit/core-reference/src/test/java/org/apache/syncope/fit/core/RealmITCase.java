@@ -32,9 +32,9 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import org.apache.syncope.common.lib.SyncopeClientException;
 import org.apache.syncope.common.lib.SyncopeConstants;
-import org.apache.syncope.common.lib.access.DefaultAccessPolicyConf;
-import org.apache.syncope.common.lib.attrs.AllowedAttrReleasePolicyConf;
-import org.apache.syncope.common.lib.authentication.policy.DefaultAuthPolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAccessPolicyConf;
+import org.apache.syncope.common.lib.policy.AllowedAttrReleasePolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAuthPolicyConf;
 import org.apache.syncope.common.lib.policy.AccountPolicyTO;
 import org.apache.syncope.common.lib.to.RealmTO;
 import org.apache.syncope.common.lib.policy.DefaultAccountRuleConf;
@@ -227,7 +227,7 @@ public class RealmITCase extends AbstractITCase {
         AuthPolicyTO policy = new AuthPolicyTO();
         policy.setDescription("Test Authentication policy");
         policy.setKey(rule.getKey());
-        policy = createPolicy(PolicyType.AUTHENTICATION, policy);
+        policy = createPolicy(PolicyType.AUTH, policy);
         assertNotNull(policy);
 
         // 2. create realm with policy assigned
@@ -252,7 +252,7 @@ public class RealmITCase extends AbstractITCase {
         assertEquals(policy.getKey(), actual.getAuthPolicy());
 
         // 3. remove policy
-        policyService.delete(PolicyType.AUTHENTICATION, policy.getKey());
+        policyService.delete(PolicyType.AUTH, policy.getKey());
 
         // 4. verify
         actual = getRealm(actual.getFullPath()).get();

@@ -20,9 +20,9 @@ package org.apache.syncope.core.persistence.jpa.inner;
 
 import java.util.List;
 import java.util.Map;
-import org.apache.syncope.common.lib.access.DefaultAccessPolicyConf;
-import org.apache.syncope.common.lib.attrs.AllowedAttrReleasePolicyConf;
-import org.apache.syncope.common.lib.authentication.policy.DefaultAuthPolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAccessPolicyConf;
+import org.apache.syncope.common.lib.policy.AllowedAttrReleasePolicyConf;
+import org.apache.syncope.common.lib.policy.DefaultAuthPolicyConf;
 import org.apache.syncope.common.lib.types.AMImplementationType;
 import org.apache.syncope.common.lib.types.ImplementationEngine;
 import org.apache.syncope.core.persistence.api.dao.ImplementationDAO;

@@ -20,9 +20,7 @@ package org.apache.syncope.core.persistence.jpa.outer;
 
 import org.apache.syncope.common.lib.SyncopeConstants;
 import org.apache.syncope.core.persistence.api.dao.RealmDAO;
-import org.apache.syncope.core.persistence.api.dao.authentication.OIDCRelyingPartyDAO;
 import org.apache.syncope.core.persistence.api.entity.Realm;
-import org.apache.syncope.core.persistence.api.entity.authentication.OIDCRelyingParty;
 import org.apache.syncope.core.persistence.api.entity.policy.AccessPolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.AttrReleasePolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
@@ -40,11 +38,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.syncope.core.persistence.api.dao.auth.OIDCRPDAO;
+import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
+
 @Transactional("Master")
 public class PolicyTest extends AbstractClientAppTest {
 
     @Autowired
-    private OIDCRelyingPartyDAO oidcRelyingPartyDAO;
+    private OIDCRPDAO oidcRelyingPartyDAO;
 
     @Autowired
     private RealmDAO realmDAO;
@@ -56,7 +57,7 @@ public class PolicyTest extends AbstractClientAppTest {
         AuthPolicy authPolicy = buildAndSaveAuthPolicy();
 
         // Create new client app and assign policy
-        OIDCRelyingParty rp = entityFactory.newEntity(OIDCRelyingParty.class);
+        OIDCRP rp = entityFactory.newEntity(OIDCRP.class);
         rp.setName("OIDC");
         rp.setDescription("This is a sample OIDC RP");
         rp.setClientId(UUID.randomUUID().toString());
@@ -83,7 +84,7 @@ public class PolicyTest extends AbstractClientAppTest {
         assertNotNull(realm);
 
         // Create new client app and assign policy
-        OIDCRelyingParty rp = entityFactory.newEntity(OIDCRelyingParty.class);
+        OIDCRP rp = entityFactory.newEntity(OIDCRP.class);
         rp.setName("OIDC");
         rp.setDescription("This is a sample OIDC RP");
         rp.setClientId(UUID.randomUUID().toString());

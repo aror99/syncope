@@ -27,8 +27,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.common.rest.api.RESTHeaders;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -41,8 +40,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import java.util.List;
+import org.apache.syncope.common.lib.to.client.ClientAppTO;
+import org.apache.syncope.common.lib.types.ClientAppType;
+import org.apache.syncope.common.rest.api.RESTHeaders;
 
 /**
  * REST operations for applications.
@@ -55,69 +55,80 @@ import java.util.List;
 public interface ClientAppService extends JAXRSService {
 
     /**
-     * Returns a list of all applications.
+     * Returns the client app matching the given key.
      *
-     * @return list of all applications.
+     * @param type client app type
+     * @param key key of requested client app
+     * @param <T> response type (extending ClientAppTO)
+     * @return client app with matching id
      */
     @GET
+    @Path("{type}/{key}")
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    List<ClientAppTO> list();
+    <T extends ClientAppTO> T read(
+            @NotNull @PathParam("type") ClientAppType type,
+            @NotNull @PathParam("key") String key);
 
     /**
-     * Returns application with matching key.
+     * Returns a list of policies of the matching type.
      *
-     * @param key application key to be read
-     * @return application with matching key
+     * @param type Type selector for requested policies
+     * @param <T> response type (extending ClientAppTO)
+     * @return list of policies with matching type
      */
     @GET
-    @Path("{key}")
+    @Path("{type}")
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    ClientAppTO read(@NotNull @PathParam("key") String key);
+    <T extends ClientAppTO> List<T> list(@NotNull @PathParam("type") ClientAppType type);
 
     /**
-     * Creates a new application.
+     * Create a new client app.
      *
-     * @param applicationTO application to be created
-     * @return Response object featuring Location header of created application
+     * @param type client app type
+     * @param clientAppTO ClientApp to be created (needs to match type)
+     * @return Response object featuring Location header of created client app
      */
     @ApiResponses(
             @ApiResponse(responseCode = "201",
-                    description = "Application successfully created", headers = {
+                    description = "ClientApp successfully created", headers = {
                 @Header(name = RESTHeaders.RESOURCE_KEY, schema =
                         @Schema(type = "string"),
-                        description = "Key value for the entity created"),
+                        description = "UUID generated for the entity created"),
                 @Header(name = HttpHeaders.LOCATION, schema =
                         @Schema(type = "string"),
                         description = "URL of the entity created") }))
     @POST
+    @Path("{type}")
     @Consumes({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    Response create(@NotNull ClientAppTO applicationTO);
+    Response create(@NotNull @PathParam("type") ClientAppType type, @NotNull ClientAppTO clientAppTO);
 
     /**
-     * Updates the application matching the provided key.
+     * Updates client app matching the given key.
      *
-     * @param applicationTO application to be stored
+     * @param type client app type
+     * @param clientAppTO ClientApp to replace existing client app
      */
-    @Parameter(name = "key", description = "Application's key", in = ParameterIn.PATH, schema =
+    @Parameter(name = "key", description = "ClientApp's key", in = ParameterIn.PATH, schema =
             @Schema(type = "string"))
     @ApiResponses(
             @ApiResponse(responseCode = "204", description = "Operation was successful"))
     @PUT
-    @Path("{key}")
+    @Path("{type}/{key}")
     @Consumes({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    void update(@NotNull ClientAppTO applicationTO);
+    void update(@NotNull @PathParam("type") ClientAppType type, @NotNull ClientAppTO clientAppTO);
 
     /**
-     * Deletes the application matching the provided key.
+     * Delete client app matching the given key.
      *
-     * @param key application key to be deleted
+     * @param type client app type
+     * @param key key of client app to be deleted
      */
     @ApiResponses(
             @ApiResponse(responseCode = "204", description = "Operation was successful"))
     @DELETE
-    @Path("{key}")
+    @Path("{type}/{key}")
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    void delete(@NotNull @PathParam("key") String key);
+    void delete(@NotNull @PathParam("type") ClientAppType type, @NotNull @PathParam("key") String key);
 }

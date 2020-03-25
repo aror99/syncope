@@ -21,9 +21,9 @@ package org.apache.syncope.core.provisioning.java.data;
 import java.lang.reflect.Modifier;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.syncope.common.lib.SyncopeClientException;
-import org.apache.syncope.common.lib.access.AccessPolicyConf;
-import org.apache.syncope.common.lib.attrs.AttrReleasePolicyConf;
-import org.apache.syncope.common.lib.authentication.module.AuthModuleConf;
+import org.apache.syncope.common.lib.policy.AccessPolicyConf;
+import org.apache.syncope.common.lib.policy.AttrReleasePolicyConf;
+import org.apache.syncope.common.lib.auth.AuthModuleConf;
 import org.apache.syncope.common.lib.policy.RuleConf;
 import org.apache.syncope.common.lib.report.ReportletConf;
 import org.apache.syncope.common.lib.to.ImplementationTO;
@@ -57,8 +57,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.apache.syncope.common.lib.authentication.policy.AuthPolicyConf;
-import org.apache.syncope.core.persistence.api.entity.authentication.AuthModule;
+import org.apache.syncope.common.lib.policy.AuthPolicyConf;
+import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
 
 @Component

@@ -59,7 +59,7 @@ public class JPAPolicyUtilsFactory implements PolicyUtilsFactory {
         } else if (policy instanceof PushPolicy) {
             type = PolicyType.PUSH;
         } else if (policy instanceof AuthPolicy) {
-            type = PolicyType.AUTHENTICATION;
+            type = PolicyType.AUTH;
         } else if (policy instanceof AccessPolicy) {
             type = PolicyType.ACCESS;
         } else if (policy instanceof AttrReleasePolicy) {
@@ -83,7 +83,7 @@ public class JPAPolicyUtilsFactory implements PolicyUtilsFactory {
         } else if (policyClass == PushPolicyTO.class) {
             type = PolicyType.PUSH;
         } else if (policyClass == AuthPolicyTO.class) {
-            type = PolicyType.AUTHENTICATION;
+            type = PolicyType.AUTH;
         } else if (policyClass == AccessPolicyTO.class) {
             type = PolicyType.ACCESS;
         } else if (policyClass == AttrReleasePolicyTO.class) {

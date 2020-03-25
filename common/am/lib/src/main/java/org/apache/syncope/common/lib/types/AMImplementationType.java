@@ -37,16 +37,15 @@ public final class AMImplementationType {
 
     private static final Map<String, String> VALUES = Map.ofEntries(
             Pair.of(AUTH_MODULE_CONFIGURATIONS,
-                    "org.apache.syncope.common.lib.authentication.policy.AuthPolicyConf"),
+                    "org.apache.syncope.common.lib.auth.AuthModuleConf"),
             Pair.of(AUTH_POLICY_CONFIGURATIONS,
-                    "org.apache.syncope.common.lib.authentication.module.AuthModuleConf"),
+                    "org.apache.syncope.common.lib.policy.AuthPolicyConf"),
             Pair.of(ATTR_RELEASE_POLICY_CONFIGURATIONS,
-                    "org.apache.syncope.common.lib.authentication.module.AuthModuleConf"),
+                    "org.apache.syncope.common.lib.policy.AttrReleasePolicyConf"),
             Pair.of(ACCESS_POLICY_CONFIGURATIONS,
-                    "org.apache.syncope.common.lib.attrs.AttrReleasePolicyConf"));
+                    "org.apache.syncope.common.lib.policy.AccessPolicyConf"));
 
     public static Map<String, String> values() {
         return VALUES;
     }
-
 }

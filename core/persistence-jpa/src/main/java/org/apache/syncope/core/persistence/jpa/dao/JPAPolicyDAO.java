@@ -18,6 +18,8 @@
  */
 package org.apache.syncope.core.persistence.jpa.dao;
 
+import java.util.List;
+import javax.persistence.TypedQuery;
 import org.apache.syncope.core.persistence.api.dao.ExternalResourceDAO;
 import org.apache.syncope.core.persistence.api.dao.PolicyDAO;
 import org.apache.syncope.core.persistence.api.dao.RealmDAO;
@@ -25,6 +27,7 @@ import org.apache.syncope.core.persistence.api.entity.Implementation;
 import org.apache.syncope.core.persistence.api.entity.policy.AccessPolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.AccountPolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.AttrReleasePolicy;
+import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.PasswordPolicy;
 import org.apache.syncope.core.persistence.api.entity.policy.Policy;
 import org.apache.syncope.core.persistence.api.entity.policy.PullPolicy;
@@ -43,11 +46,6 @@ import org.apache.syncope.core.persistence.jpa.entity.policy.JPAPushPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.TypedQuery;
-
-import java.util.List;
-import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
 
 @Repository
 public class JPAPolicyDAO extends AbstractDAO<Policy> implements PolicyDAO {
@@ -183,7 +181,6 @@ public class JPAPolicyDAO extends AbstractDAO<Policy> implements PolicyDAO {
 
     @Override
     public <T extends Policy> void delete(final T policy) {
-
         realmDAO.findByPolicy(policy).forEach(realm -> {
             if (policy instanceof AccountPolicy) {
                 realm.setAccountPolicy(null);

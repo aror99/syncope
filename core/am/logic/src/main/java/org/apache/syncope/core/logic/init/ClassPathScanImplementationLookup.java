@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import org.apache.syncope.common.lib.access.AccessPolicyConf;
+import org.apache.syncope.common.lib.policy.AccessPolicyConf;
 import org.apache.syncope.common.lib.types.AMImplementationType;
 import org.apache.syncope.common.lib.types.ImplementationTypesHolder;
 import org.apache.syncope.core.persistence.api.ImplementationLookup;
@@ -36,8 +36,8 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.Ordered;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.util.ClassUtils;
-import org.apache.syncope.common.lib.authentication.module.AuthModuleConf;
-import org.apache.syncope.common.lib.authentication.policy.AuthPolicyConf;
+import org.apache.syncope.common.lib.auth.AuthModuleConf;
+import org.apache.syncope.common.lib.policy.AuthPolicyConf;
 
 /**
  * Cache class names for all implementations of Syncope interfaces found in classpath, for later usage.
