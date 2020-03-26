@@ -55,6 +55,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Set;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
 
 @Transactional("Master")
@@ -207,7 +208,7 @@ public class PolicyTest extends AbstractTest {
         accessPolicy.setDescription("This is a sample attr release policy that releases everything");
 
         DefaultAccessPolicyConf conf = new DefaultAccessPolicyConf();
-        conf.getRequiredAttributes().putAll(Map.of("cn", List.of("syncope")));
+        conf.getRequiredAttributes().putAll(Map.of("cn", Set.of("syncope")));
         conf.setName("AttrReleasePolicyAllowEverything");
 
         Implementation type = entityFactory.newEntity(Implementation.class);

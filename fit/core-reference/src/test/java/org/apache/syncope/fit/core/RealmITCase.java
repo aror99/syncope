@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -265,7 +266,7 @@ public class RealmITCase extends AbstractITCase {
         DefaultAccessPolicyConf ruleConf = new DefaultAccessPolicyConf();
         ruleConf.setEnabled(true);
         ruleConf.setName("TestAccessPolicyConf" + getUUIDString());
-        ruleConf.getRequiredAttributes().put("cn", List.of("admin", "Admin", "TheAdmin"));
+        ruleConf.getRequiredAttributes().put("cn", Set.of("admin", "Admin", "TheAdmin"));
 
         ImplementationTO rule = new ImplementationTO();
         rule.setKey("TestAccessPolicy" + getUUIDString());

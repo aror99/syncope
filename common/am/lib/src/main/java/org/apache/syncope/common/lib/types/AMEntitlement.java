@@ -56,6 +56,10 @@ public final class AMEntitlement {
 
     private static final Set<String> VALUES;
 
+    public static final String REGISTERED_CLIENT_APP_READ = "REGISTERED_CLIENT_APP_READ";
+
+    public static final String REGISTERED_CLIENT_APP_LIST = "REGISTERED_CLIENT_APP_READ";
+
     static {
         Set<String> values = new TreeSet<>();
         for (Field field : AMEntitlement.class.getDeclaredFields()) {

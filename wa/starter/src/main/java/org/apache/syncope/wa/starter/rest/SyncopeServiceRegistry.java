@@ -19,8 +19,10 @@
 package org.apache.syncope.wa.starter.rest;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.syncope.common.rest.api.service.RegisteredClientAppService;
 import org.apache.syncope.wa.WARestClient;
+import org.apache.syncope.wa.mapper.RegisteredServiceMapper;
 import org.apereo.cas.services.AbstractServiceRegistry;
 import org.apereo.cas.services.RegisteredService;
 import org.apereo.cas.services.ServiceRegistryListener;
@@ -34,11 +36,14 @@ public class SyncopeServiceRegistry extends AbstractServiceRegistry {
 
     private final WARestClient restClient;
 
+    private final RegisteredServiceMapper mapper;
+
     public SyncopeServiceRegistry(final WARestClient restClient,
             final ConfigurableApplicationContext applicationContext,
             final Collection<ServiceRegistryListener> serviceRegistryListeners) {
         super(applicationContext, serviceRegistryListeners);
         this.restClient = restClient;
+        this.mapper = new RegisteredServiceMapper();
     }
 
     @Override
@@ -54,7 +59,9 @@ public class SyncopeServiceRegistry extends AbstractServiceRegistry {
     @Override
     public Collection<RegisteredService> load() {
         LOG.info("Loading application definitions");
-        return List.of();
+
+        return restClient.getSyncopeClient().getService(RegisteredClientAppService.class).list().stream().
+                map(clientApp -> mapper.toRegisteredService(clientApp)).collect(Collectors.toList());
     }
 
     @Override

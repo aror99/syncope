@@ -143,7 +143,7 @@ public class PolicyITCase extends AbstractITCase {
                 DefaultAccessPolicyConf conf = new DefaultAccessPolicyConf();
                 conf.setEnabled(true);
                 conf.setName("TestAccessPolicyConf");
-                conf.getRequiredAttributes().put("cn", List.of("admin", "Admin", "TheAdmin"));
+                conf.getRequiredAttributes().put("cn", Set.of("admin", "Admin", "TheAdmin"));
                 implementationTO.setBody(POJOHelper.serialize(conf));
 
                 Response response = implementationService.create(implementationTO);
@@ -373,8 +373,8 @@ public class PolicyITCase extends AbstractITCase {
         DefaultAccessPolicyConf accessPolicyConf =
                 POJOHelper.deserialize(accessPolicyImplementationTO.getBody(), DefaultAccessPolicyConf.class);
         assertNotNull(accessPolicyConf);
-        accessPolicyConf.getRequiredAttributes().put("ou", List.of("test"));
-        accessPolicyConf.getRequiredAttributes().put("cn", List.of("admin", "Admin"));
+        accessPolicyConf.getRequiredAttributes().put("ou", Set.of("test"));
+        accessPolicyConf.getRequiredAttributes().put("cn", Set.of("admin", "Admin"));
         accessPolicyImplementationTO.setBody(POJOHelper.serialize(accessPolicyConf));
 
         // update new authentication policy

@@ -16,26 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.common.lib.policy;
+package org.apache.syncope.core.provisioning.api.data;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import java.io.Serializable;
-import java.util.Map;
-import java.util.Set;
+import org.apache.syncope.common.lib.to.RegisteredClientAppTO;
+import org.apache.syncope.common.lib.to.client.ClientAppTO;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-public interface AccessPolicyConf extends Serializable {
+public interface RegisteredClientAppBinder {
 
-    /**
-     * Give name of related access policy.
-     *
-     * @return name of this access policy
-     */
-    String getName();
+    RegisteredClientAppTO getRegisteredClientAppTO(ClientAppTO clientAppTO);
 
-    boolean isEnabled();
-
-    boolean isSsoEnabled();
-
-    Map<String, Set<String>> getRequiredAttributes();
 }

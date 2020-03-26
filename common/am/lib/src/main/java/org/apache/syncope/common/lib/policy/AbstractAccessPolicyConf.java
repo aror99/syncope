@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -43,7 +43,7 @@ public abstract class AbstractAccessPolicyConf implements Serializable, AccessPo
     private boolean ssoEnabled = true;
 
     @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    private final Map<String, List<String>> requiredAttributes = new LinkedHashMap<>();
+    private final Map<String, Set<String>> requiredAttributes = new LinkedHashMap<>();
 
     public AbstractAccessPolicyConf() {
         setName(getClass().getName());
@@ -80,7 +80,7 @@ public abstract class AbstractAccessPolicyConf implements Serializable, AccessPo
     @XmlElement(name = "requiredAttribute")
     @JsonProperty("requiredAttributes")
     @Override
-    public Map<String, List<String>> getRequiredAttributes() {
+    public Map<String, Set<String>> getRequiredAttributes() {
         return requiredAttributes;
     }
 
