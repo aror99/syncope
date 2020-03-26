@@ -47,16 +47,6 @@ public class SyncopeWAPropertySourceLocator implements PropertySourceLocator {
             Map<String, Object> properties = new HashMap<>();
             if (WARestClient.isReady()) {
                 LOG.info("Bootstrapping WA configuration");
-                /*
-                String content = WebClient.create(URI.create("https://demo5926981.mockable.io/casproperties")).
-                    accept(MediaType.APPLICATION_JSON_TYPE).
-                    get().
-                    readEntity(String.class);
-
-                properties.putAll(MAPPER.readValue(content, new TypeReference<Map<String, Object>>() {
-                }));
-                LOG.debug("Loaded properties {}", properties);
-                 */
                 return new MapPropertySource(getClass().getName(), properties);
             }
 
