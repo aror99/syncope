@@ -35,7 +35,7 @@ import org.apache.syncope.common.lib.to.RegisteredClientAppTO;
 /**
  * REST operations for resgistered client applications.
  */
-@Tag(name = "RegisteredClientAppss")
+@Tag(name = "RegisteredClientApps")
 @SecurityRequirements({
     @SecurityRequirement(name = "BasicAuthentication"),
     @SecurityRequirement(name = "Bearer") })
