@@ -146,7 +146,6 @@ under the License.
                 <context>syncope</context>
               </properties>
             </deployable>
-            <!--
             <deployable>
               <location>${basedir}/../console-reference/target/syncope-fit-console-reference-${project.version}</location>
               <properties>
@@ -159,7 +158,6 @@ under the License.
                 <context>syncope-enduser</context>
               </properties>
             </deployable>
-            -->
             <deployable>
               <location>${project.build.directory}/${project.build.finalName}</location>
               <properties>
