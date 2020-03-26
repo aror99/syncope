@@ -18,6 +18,8 @@
  */
 package org.apache.syncope.wa;
 
+import org.apereo.cas.util.spring.ApplicationContextProvider;
+
 import org.apache.syncope.client.lib.AnonymousAuthenticationHandler;
 import org.apache.syncope.client.lib.SyncopeClient;
 import org.apache.syncope.client.lib.SyncopeClientFactoryBean;
@@ -26,12 +28,13 @@ import org.apache.syncope.common.keymaster.client.api.ServiceOps;
 import org.apache.syncope.common.keymaster.client.api.model.NetworkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+
+import java.util.Collection;
 
 public class WARestClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(WARestClient.class);
-
-    private final ServiceOps serviceOps;
 
     private final String anonymousUser;
 
@@ -42,12 +45,10 @@ public class WARestClient {
     private SyncopeClient client;
 
     public WARestClient(
-        final ServiceOps serviceOps,
         final String anonymousUser,
         final String anonymousKey,
         final boolean useGZIPCompression) {
 
-        this.serviceOps = serviceOps;
         this.anonymousUser = anonymousUser;
         this.anonymousKey = anonymousKey;
         this.useGZIPCompression = useGZIPCompression;
@@ -70,14 +71,29 @@ public class WARestClient {
         return client;
     }
 
-    private NetworkService getCore() {
-        return serviceOps.get(NetworkService.Type.CORE);
+    private static NetworkService getCore() {
+        try {
+            final ApplicationContext context = ApplicationContextProvider.getApplicationContext();
+            if (context == null) {
+                return null;
+            }
+
+            Collection<ServiceOps> serviceOpsList = context.getBeansOfType(ServiceOps.class).values();
+            if (serviceOpsList.isEmpty()) {
+                return null;
+            }
+            ServiceOps serviceOps = serviceOpsList.iterator().next();
+            return serviceOps.get(NetworkService.Type.CORE);
+        } catch (KeymasterException e) {
+            LOG.trace(e.getMessage());
+        }
+        return null;
     }
 
-    public boolean isReady() {
+    public static boolean isReady() {
         try {
             return getCore() != null;
-        } catch (KeymasterException e) {
+        } catch (Exception e) {
             LOG.trace(e.getMessage());
         }
         return false;

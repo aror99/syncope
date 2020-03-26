@@ -29,21 +29,39 @@ import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Order
 public class SyncopeWAPropertySourceLocator implements PropertySourceLocator {
     private static final Logger LOG = LoggerFactory.getLogger(SyncopeWABootstrapConfiguration.class);
 
+    private final WARestClient waRestClient;
 
     public SyncopeWAPropertySourceLocator(final WARestClient waRestClient) {
-
+        this.waRestClient = waRestClient;
     }
 
     @Override
     public PropertySource<?> locate(final Environment environment) {
         try {
-            LOG.info("Bootstrapping WA configuration");
-            return new MapPropertySource(getClass().getName(), new HashMap<>());
+            Map<String, Object> properties = new HashMap<>();
+            if (WARestClient.isReady()) {
+                LOG.info("Bootstrapping WA configuration");
+                /*
+                String content = WebClient.create(URI.create("https://demo5926981.mockable.io/casproperties")).
+                    accept(MediaType.APPLICATION_JSON_TYPE).
+                    get().
+                    readEntity(String.class);
+
+                properties.putAll(MAPPER.readValue(content, new TypeReference<Map<String, Object>>() {
+                }));
+                LOG.debug("Loaded properties {}", properties);
+                 */
+                return new MapPropertySource(getClass().getName(), properties);
+            }
+
+            LOG.warn("Application context is not ready to bootstrap WA configuration");
+            return null;
         } catch (Exception e) {
             throw new IllegalArgumentException("Unable to fetch settings", e);
         }

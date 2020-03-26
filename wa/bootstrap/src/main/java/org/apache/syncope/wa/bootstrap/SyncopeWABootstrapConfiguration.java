@@ -18,25 +18,18 @@
  */
 package org.apache.syncope.wa.bootstrap;
 
-import org.apache.syncope.common.keymaster.client.api.ServiceOps;
-import org.apache.syncope.common.keymaster.client.self.SelfKeymasterClientContext;
-import org.apache.syncope.common.keymaster.client.zookeper.ZookeeperKeymasterClientContext;
 import org.apache.syncope.wa.WARestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.cloud.bootstrap.config.PropertySourceLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration(proxyBeanMethods = false)
-@ImportAutoConfiguration(classes = {ZookeeperKeymasterClientContext.class, SelfKeymasterClientContext.class})
 @PropertySource("classpath:wa.properties")
 @PropertySource(value = "file:${conf.directory}/wa.properties", ignoreResourceNotFound = true)
 public class SyncopeWABootstrapConfiguration {
-
-
     @Value("${anonymousUser}")
     private String anonymousUser;
 
@@ -46,10 +39,9 @@ public class SyncopeWABootstrapConfiguration {
     @Value("${useGZIPCompression}")
     private boolean useGZIPCompression;
 
-    @Autowired
     @Bean
-    public WARestClient waRestClient(final ServiceOps serviceOps) {
-        return new WARestClient(serviceOps, anonymousUser, anonymousKey, useGZIPCompression);
+    public WARestClient waRestClient() {
+        return new WARestClient(anonymousUser, anonymousKey, useGZIPCompression);
     }
 
     @Autowired
