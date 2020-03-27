@@ -14,6 +14,8 @@
 # limitations under the License.
 
 language: java
+os: linux
+dist: trusty
 jdk:
   - openjdk11
 cache:
