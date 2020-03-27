@@ -57,12 +57,12 @@ jobs:
     - stage: test
       name: "Unit Tests via JDK 13"
       script: 
-      - jdk_switcher use oraclejdk13
+      - jdk_switcher use openjdk13
       - eval $TestCommand
     - stage: test
       name: "Unit Tests via JDK 14"
       script: 
-      - jdk_switcher use oraclejdk14
+      - jdk_switcher use openjdk14
       - eval $TestCommand
       ######################################################
     - stage: fit
