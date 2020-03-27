@@ -15,7 +15,6 @@
 
 language: java
 os: linux
-dist: trusty
 jdk:
   - openjdk11
 cache:
@@ -57,12 +56,16 @@ jobs:
     - stage: test
       name: "Unit Tests via JDK 13"
       script: 
-      - jdk_switcher use openjdk13
+      - ~/bin/install-jdk.sh --target "/home/travis/openjdk13" --workspace "/home/travis/.cache/install-jdk" --feature "13" --license "GPL" --cacerts
+      - export JAVA_HOME=~/openjdk13
+      - export PATH="$JAVA_HOME/bin:$PATH"
       - eval $TestCommand
     - stage: test
       name: "Unit Tests via JDK 14"
       script: 
-      - jdk_switcher use openjdk14
+      - ~/bin/install-jdk.sh --target "/home/travis/openjdk14" --workspace "/home/travis/.cache/install-jdk" --feature "14" --license "GPL" --cacerts
+      - export JAVA_HOME=~/openjdk14
+      - export PATH="$JAVA_HOME/bin:$PATH"
       - eval $TestCommand
       ######################################################
     - stage: fit
