@@ -296,6 +296,14 @@ public class SAML2IdPAuthModuleConf extends AbstractAuthModuleConf {
         this.passive = passive;
     }
 
+    public String getNameIdPolicyAllowCreate() {
+        return nameIdPolicyAllowCreate;
+    }
+
+    public void setNameIdPolicyAllowCreate(final String nameIdPolicyAllowCreate) {
+        this.nameIdPolicyAllowCreate = nameIdPolicyAllowCreate;
+    }
+
     @XmlElementWrapper(name = "authnContextClassRefs")
     @XmlElement(name = "authnContextClassRef")
     @JsonProperty("authnContextClassRefs")
