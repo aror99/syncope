@@ -57,6 +57,7 @@ import org.apache.syncope.core.persistence.api.entity.anyobject.APlainAttrValue;
 import org.apache.syncope.core.persistence.api.entity.anyobject.ARelationship;
 import org.apache.syncope.core.persistence.api.entity.anyobject.AnyObject;
 import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
+import org.apache.syncope.core.persistence.api.entity.auth.AuthModuleItem;
 import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
 import org.apache.syncope.core.persistence.api.entity.auth.SAML2SP;
 import org.apache.syncope.core.persistence.api.entity.group.GPlainAttr;
@@ -108,7 +109,6 @@ import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAAPlainAttrUni
 import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAAPlainAttrValue;
 import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAARelationship;
 import org.apache.syncope.core.persistence.jpa.entity.anyobject.JPAAnyObject;
-import org.apache.syncope.core.persistence.jpa.entity.auth.JPAAuthModule;
 import org.apache.syncope.core.persistence.jpa.entity.auth.JPAOIDCRP;
 import org.apache.syncope.core.persistence.jpa.entity.auth.JPASAML2SP;
 import org.apache.syncope.core.persistence.jpa.entity.group.JPAGPlainAttr;
@@ -153,6 +153,8 @@ import org.apache.syncope.core.persistence.jpa.entity.user.JPAUPlainAttrValue;
 import org.apache.syncope.core.persistence.jpa.entity.user.JPAURelationship;
 import org.apache.syncope.core.persistence.jpa.entity.user.JPAUser;
 import org.apache.syncope.core.spring.security.SecureRandomUtils;
+import org.apache.syncope.core.persistence.jpa.entity.auth.JPAAuthModule;
+import org.apache.syncope.core.persistence.jpa.entity.auth.JPAAuthModuleItem;
 
 public class JPAEntityFactory implements EntityFactory {
 
@@ -307,6 +309,8 @@ public class JPAEntityFactory implements EntityFactory {
             result = (E) new JPAGatewayRoute();
         } else if (reference.equals(AuthModule.class)) {
             result = (E) new JPAAuthModule();
+        } else if (reference.equals(AuthModuleItem.class)) {
+            result = (E) new JPAAuthModuleItem();
         } else if (reference.equals(AuthPolicy.class)) {
             result = (E) new JPAAuthPolicy();
         } else if (reference.equals(AccessPolicy.class)) {

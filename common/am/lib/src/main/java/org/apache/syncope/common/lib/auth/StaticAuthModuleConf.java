@@ -19,12 +19,12 @@
 package org.apache.syncope.common.lib.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 
@@ -36,12 +36,6 @@ public class StaticAuthModuleConf extends AbstractAuthModuleConf {
 
     @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
     private final Map<String, String> users = new HashMap<>();
-
-    public StaticAuthModuleConf(final Map<String, String> users) {
-        setName(getClass().getSimpleName());
-        getUsers().clear();
-        getUsers().putAll(users);
-    }
 
     @XmlElementWrapper(name = "users")
     @XmlElement(name = "user")

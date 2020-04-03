@@ -16,20 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.common.lib.auth;
+package org.apache.syncope.core.persistence.api.entity.auth;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import java.io.Serializable;
-import javax.xml.bind.annotation.XmlTransient;
+import org.apache.syncope.core.persistence.api.entity.resource.Item;
 
-@XmlTransient
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-public interface AuthModuleConf extends Serializable {
+public interface AuthModuleItem extends Item {
 
-    /**
-     * Given name of related authentication module instance.
-     *
-     * @return name of this authentication module instance
-     */
-    String getName();
 }

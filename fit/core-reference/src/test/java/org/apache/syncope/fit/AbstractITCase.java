@@ -74,6 +74,7 @@ import org.apache.syncope.common.lib.to.ProvisioningResult;
 import org.apache.syncope.common.lib.to.ReportTO;
 import org.apache.syncope.common.lib.to.RoleTO;
 import org.apache.syncope.common.lib.to.UserTO;
+import org.apache.syncope.common.lib.to.AuthModuleTO;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 import org.apache.syncope.common.lib.types.PatchOperation;
 import org.apache.syncope.common.lib.types.PolicyType;
@@ -86,6 +87,7 @@ import org.apache.syncope.common.rest.api.service.AnyObjectService;
 import org.apache.syncope.common.rest.api.service.AnyTypeClassService;
 import org.apache.syncope.common.rest.api.service.AnyTypeService;
 import org.apache.syncope.common.rest.api.service.ApplicationService;
+import org.apache.syncope.common.rest.api.service.AuthModuleService;
 import org.apache.syncope.common.rest.api.service.CamelRouteService;
 import org.apache.syncope.common.rest.api.service.ClientAppService;
 import org.apache.syncope.common.rest.api.service.ConnectorService;
@@ -268,6 +270,8 @@ public abstract class AbstractITCase {
 
     protected static PolicyService policyService;
 
+    protected static AuthModuleService authModuleService;
+
     protected static SecurityQuestionService securityQuestionService;
 
     protected static ImplementationService implementationService;
@@ -360,6 +364,7 @@ public abstract class AbstractITCase {
         oidcProviderService = adminClient.getService(OIDCProviderService.class);
         scimConfService = adminClient.getService(SCIMConfService.class);
         clientAppService = adminClient.getService(ClientAppService.class);
+        authModuleService = adminClient.getService(AuthModuleService.class);
     }
 
     @Autowired
@@ -560,6 +565,18 @@ public abstract class AbstractITCase {
             }
         }
         return (T) getObject(response.getLocation(), PolicyService.class, policy.getClass());
+    }
+
+    @SuppressWarnings("unchecked")
+    protected AuthModuleTO createAuthModule(final AuthModuleTO authModule) {
+        Response response = authModuleService.create(authModule);
+        if (response.getStatusInfo().getStatusCode() != Response.Status.CREATED.getStatusCode()) {
+            Exception ex = clientFactory.getExceptionMapper().fromResponse(response);
+            if (ex != null) {
+                throw (RuntimeException) ex;
+            }
+        }
+        return getObject(response.getLocation(), AuthModuleService.class, authModule.getClass());
     }
 
     protected ResourceTO createResource(final ResourceTO resourceTO) {

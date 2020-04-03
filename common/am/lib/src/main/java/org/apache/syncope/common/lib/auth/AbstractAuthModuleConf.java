@@ -18,28 +18,19 @@
  */
 package org.apache.syncope.common.lib.auth;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import org.apache.syncope.common.lib.to.ItemTO;
 
 @XmlType
-@XmlSeeAlso({ JaasAuthModuleConf.class, StaticAuthModuleConf.class, LDAPAuthModuleConf.class, OIDCAuthModuleConf.class,
-    GoogleMfaAuthModuleConf.class, SAML2IdPAuthModuleConf.class })
+@XmlSeeAlso({ JaasAuthModuleConf.class, StaticAuthModuleConf.class, LDAPAuthModuleConf.class,
+    OIDCAuthModuleConf.class, GoogleMfaAuthModuleConf.class, SAML2IdPAuthModuleConf.class, U2FAuthModuleConf.class,
+    JDBCAuthModuleConf.class, SyncopeAuthModuleConf.class, RadiusAuthModuleConf.class })
 public abstract class AbstractAuthModuleConf implements Serializable, AuthModuleConf {
 
     private static final long serialVersionUID = 4153200197344709778L;
 
     private String name;
-
-    private int order;
-
-    private List<ItemTO> profileItems = new ArrayList<>();
 
     public AbstractAuthModuleConf() {
         setName(getClass().getName());
@@ -52,23 +43,6 @@ public abstract class AbstractAuthModuleConf implements Serializable, AuthModule
 
     public final void setName(final String name) {
         this.name = name;
-    }
-
-    @Override
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(final int order) {
-        this.order = order;
-    }
-
-    @XmlElementWrapper(name = "profileItems")
-    @XmlElement(name = "profileItem")
-    @JsonProperty("profileItems")
-    @Override
-    public List<ItemTO> getProfileItems() {
-        return profileItems;
     }
 
 }

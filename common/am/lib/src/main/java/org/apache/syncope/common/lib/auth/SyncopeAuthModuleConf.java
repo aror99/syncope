@@ -18,18 +18,39 @@
  */
 package org.apache.syncope.common.lib.auth;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import java.io.Serializable;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlTransient
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-public interface AuthModuleConf extends Serializable {
+@XmlRootElement(name = "syncopeAuthModuleConf")
+@XmlType
+public class SyncopeAuthModuleConf extends AbstractAuthModuleConf {
+
+    private static final long serialVersionUID = -3334329948161152222L;
 
     /**
-     * Given name of related authentication module instance.
-     *
-     * @return name of this authentication module instance
+     * Syncope domain used for authentication, etc.
      */
-    String getName();
+    private String domain = "Master";
+
+    /**
+     * Syncope instance URL primary used for REST.
+     */
+    private String url;
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(final String domain) {
+        this.domain = domain;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(final String url) {
+        this.url = url;
+    }
+
 }

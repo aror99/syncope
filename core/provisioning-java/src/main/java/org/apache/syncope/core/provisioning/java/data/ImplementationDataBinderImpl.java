@@ -23,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.syncope.common.lib.SyncopeClientException;
 import org.apache.syncope.common.lib.policy.AccessPolicyConf;
 import org.apache.syncope.common.lib.policy.AttrReleasePolicyConf;
-import org.apache.syncope.common.lib.auth.AuthModuleConf;
 import org.apache.syncope.common.lib.policy.RuleConf;
 import org.apache.syncope.common.lib.report.ReportletConf;
 import org.apache.syncope.common.lib.to.ImplementationTO;
@@ -58,7 +57,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.apache.syncope.common.lib.policy.AuthPolicyConf;
-import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
 import org.apache.syncope.core.persistence.api.entity.policy.AuthPolicy;
 
 @Component
@@ -162,10 +160,6 @@ public class ImplementationDataBinderImpl implements ImplementationDataBinder {
                     base = AccessPolicy.class;
                     break;
 
-                case AMImplementationType.AUTH_MODULE_CONFIGURATIONS:
-                    base = AuthModule.class;
-                    break;
-
                 case AMImplementationType.AUTH_POLICY_CONFIGURATIONS:
                     base = AuthPolicy.class;
                     break;
@@ -195,14 +189,6 @@ public class ImplementationDataBinderImpl implements ImplementationDataBinder {
                             POJOHelper.deserialize(implementation.getBody(), AttrReleasePolicyConf.class);
                     if (policyConf == null) {
                         sce.getElements().add("Could not deserialize as AttrReleasePolicy");
-                        throw sce;
-                    }
-                    break;
-                case AMImplementationType.AUTH_MODULE_CONFIGURATIONS:
-                    AuthModuleConf authModuleConf =
-                            POJOHelper.deserialize(implementation.getBody(), AuthModuleConf.class);
-                    if (authModuleConf == null) {
-                        sce.getElements().add("Could not deserialize as AuthModule");
                         throw sce;
                     }
                     break;

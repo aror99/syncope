@@ -54,7 +54,7 @@ public class JPAAuthPolicy extends AbstractPolicy implements AuthPolicy {
             @JoinColumn(name = "implementation_id"),
             uniqueConstraints =
             @UniqueConstraint(columnNames = { "authentication_policy_id", "implementation_id" }))
-    private List<JPAImplementation> configurations = new ArrayList<>();
+    private final List<JPAImplementation> configurations = new ArrayList<>();
 
     @Override
     public String getName() {

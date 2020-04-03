@@ -41,6 +41,7 @@ public class SyncopeServiceRegistry extends AbstractServiceRegistry {
     public SyncopeServiceRegistry(final WARestClient restClient,
             final ConfigurableApplicationContext applicationContext,
             final Collection<ServiceRegistryListener> serviceRegistryListeners) {
+
         super(applicationContext, serviceRegistryListeners);
         this.restClient = restClient;
         this.mapper = new RegisteredServiceMapper();

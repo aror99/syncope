@@ -54,7 +54,7 @@ public class JPAAccessPolicy extends AbstractPolicy implements AccessPolicy {
             @JoinColumn(name = "implementation_id"),
             uniqueConstraints =
             @UniqueConstraint(columnNames = { "access_policy_id", "implementation_id" }))
-    private List<JPAImplementation> configurations = new ArrayList<>();
+    private final List<JPAImplementation> configurations = new ArrayList<>();
 
     @Override
     public String getName() {

@@ -23,8 +23,6 @@ import java.util.Map;
 
 public final class AMImplementationType {
 
-    public static final String AUTH_MODULE_CONFIGURATIONS = "AUTH_MODULE_CONFIGURATIONS";
-
     public static final String AUTH_POLICY_CONFIGURATIONS = "AUTH_POLICY_CONFIGURATIONS";
 
     public static final String ACCESS_POLICY_CONFIGURATIONS = "ACCESS_POLICY_CONFIGURATIONS";
@@ -36,8 +34,6 @@ public final class AMImplementationType {
     }
 
     private static final Map<String, String> VALUES = Map.ofEntries(
-            Pair.of(AUTH_MODULE_CONFIGURATIONS,
-                    "org.apache.syncope.common.lib.auth.AuthModuleConf"),
             Pair.of(AUTH_POLICY_CONFIGURATIONS,
                     "org.apache.syncope.common.lib.policy.AuthPolicyConf"),
             Pair.of(ATTR_RELEASE_POLICY_CONFIGURATIONS,

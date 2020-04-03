@@ -75,14 +75,6 @@ public class LDAPAuthModuleConf extends AbstractAuthModuleConf {
         this.searchFilter = searchFilter;
     }
 
-    public String getBaseDn() {
-        return baseDn;
-    }
-
-    public void setBaseDn(final String baseDn) {
-        this.baseDn = baseDn;
-    }
-
     public String getUserIdAttribute() {
         return userIdAttribute;
     }
@@ -122,4 +114,13 @@ public class LDAPAuthModuleConf extends AbstractAuthModuleConf {
     public void setBindCredential(final String bindCredential) {
         this.bindCredential = bindCredential;
     }
+
+    public String getBaseDn() {
+        return baseDn;
+    }
+
+    public void setBaseDn(final String baseDn) {
+        this.baseDn = baseDn;
+    }
+
 }

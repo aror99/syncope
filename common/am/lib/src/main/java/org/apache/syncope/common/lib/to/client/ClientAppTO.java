@@ -33,8 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 @XmlSeeAlso({ OIDCRPTO.class, SAML2SPTO.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "@class")
-@JsonPropertyOrder(value = { "@class", "key", "name", "description",
-    "authPolicy", "accessPolicy", "attReleasePolicy" })
+@JsonPropertyOrder(value = { "@class", "key", "name", "description", "authPolicy", "accessPolicy", "attReleasePolicy" })
 @Schema(subTypes = { OIDCRPTO.class, SAML2SPTO.class }, discriminatorProperty = "@class")
 public abstract class ClientAppTO extends BaseBean implements EntityTO {
 

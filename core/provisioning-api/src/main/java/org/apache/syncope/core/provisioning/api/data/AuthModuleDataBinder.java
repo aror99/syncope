@@ -16,30 +16,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.logic;
+package org.apache.syncope.core.provisioning.api.data;
 
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
+import org.apache.syncope.common.lib.to.AuthModuleTO;
+import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
 
-import java.lang.reflect.Method;
-import java.util.List;
+public interface AuthModuleDataBinder {
 
-public abstract class AbstractClientAppLogic<T extends ClientAppTO>
-        extends AbstractTransactionalLogic<ClientAppTO> {
+    AuthModule create(AuthModuleTO authModuleTO);
 
-    @Override
-    protected ClientAppTO resolveReference(final Method method, final Object... args)
-            throws UnresolvedReferenceException {
-        throw new UnresolvedReferenceException();
-    }
+    AuthModule update(AuthModule authModule, AuthModuleTO authModuleTO);
 
-    public abstract T delete(String key);
-
-    public abstract List<T> list();
-
-    public abstract T read(String key);
-
-    public abstract T create(T applicationTO);
-
-    public abstract T update(T applicationTO);
+    AuthModuleTO getAuthModuleTO(AuthModule authModule);
 
 }

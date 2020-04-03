@@ -18,15 +18,14 @@
  */
 package org.apache.syncope.core.persistence.jpa.dao.auth;
 
-import org.apache.syncope.core.persistence.api.entity.Implementation;
 import org.apache.syncope.core.persistence.jpa.dao.AbstractDAO;
-import org.apache.syncope.core.persistence.jpa.entity.auth.JPAAuthModule;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
 import org.apache.syncope.core.persistence.api.dao.auth.AuthModuleDAO;
+import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
+import org.apache.syncope.core.persistence.jpa.entity.auth.JPAAuthModule;
 
 @Repository
 public class JPAAuthModuleDAO extends AbstractDAO<AuthModule> implements AuthModuleDAO {
@@ -46,15 +45,6 @@ public class JPAAuthModuleDAO extends AbstractDAO<AuthModule> implements AuthMod
     }
 
     @Transactional(readOnly = true)
-    @Override
-    public List<AuthModule> findByConfiguration(final Implementation configuration) {
-        TypedQuery<AuthModule> query = entityManager().createQuery("SELECT e FROM " + JPAAuthModule.class.
-                getSimpleName() + " e "
-                + "WHERE :configuration MEMBER OF e.configurations", AuthModule.class);
-        query.setParameter("configuration", configuration);
-        return query.getResultList();
-    }
-
     @Override
     public AuthModule save(final AuthModule authModule) {
         return entityManager().merge(authModule);

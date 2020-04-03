@@ -54,7 +54,7 @@ public class JPAAttrReleasePolicy extends AbstractPolicy implements AttrReleaseP
             @JoinColumn(name = "implementation_id"),
             uniqueConstraints =
             @UniqueConstraint(columnNames = { "attr_release_policy_id", "implementation_id" }))
-    private List<JPAImplementation> configurations = new ArrayList<>();
+    private final List<JPAImplementation> configurations = new ArrayList<>();
 
     @Override
     public String getName() {

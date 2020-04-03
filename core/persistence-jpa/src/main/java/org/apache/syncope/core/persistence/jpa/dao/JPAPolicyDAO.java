@@ -121,29 +121,27 @@ public class JPAPolicyDAO extends AbstractDAO<Policy> implements PolicyDAO {
     }
 
     @Override
-    public List<AuthPolicy> findByAuthPolicy(final Implementation policy) {
+    public List<AuthPolicy> findByAuthPolicy(final Implementation conf) {
         TypedQuery<AuthPolicy> query = entityManager().createQuery("SELECT e FROM " + JPAAuthPolicy.class.
-                getSimpleName() + " e "
-                + "WHERE :authPolicy MEMBER OF e.rules", AuthPolicy.class);
-        query.setParameter("authPolicy", policy);
+                getSimpleName() + " e WHERE :authPolicy MEMBER OF e.configurations", AuthPolicy.class);
+        query.setParameter("authPolicy", conf);
         return query.getResultList();
     }
 
     @Override
-    public List<AccessPolicy> findByAccessPolicy(final Implementation policy) {
+    public List<AccessPolicy> findByAccessPolicy(final Implementation conf) {
         TypedQuery<AccessPolicy> query = entityManager().createQuery("SELECT e FROM " + JPAAuthPolicy.class.
-                getSimpleName() + " e "
-                + "WHERE :accessPolicy MEMBER OF e.rules", AccessPolicy.class);
-        query.setParameter("accessPolicy", policy);
+                getSimpleName() + " e WHERE :accessPolicy MEMBER OF e.configurations", AccessPolicy.class);
+        query.setParameter("accessPolicy", conf);
         return query.getResultList();
     }
 
     @Override
-    public List<AttrReleasePolicy> findByAttrReleasePolicy(final Implementation policy) {
-        TypedQuery<AttrReleasePolicy> query = entityManager().createQuery(
-                "SELECT e FROM " + JPAAttrReleasePolicy.class.getSimpleName() + " e "
-                + "WHERE :attrReleasePolicy MEMBER OF e.rules", AttrReleasePolicy.class);
-        query.setParameter("attrReleasePolicy", policy);
+    public List<AttrReleasePolicy> findByAttrReleasePolicy(final Implementation conf) {
+        TypedQuery<AttrReleasePolicy> query = entityManager().createQuery("SELECT e FROM "
+                + JPAAttrReleasePolicy.class.getSimpleName() + " e WHERE :attrReleasePolicy MEMBER OF e.configurations",
+                AttrReleasePolicy.class);
+        query.setParameter("attrReleasePolicy", conf);
         return query.getResultList();
     }
 

@@ -18,9 +18,10 @@
  */
 package org.apache.syncope.core.persistence.api.entity.auth;
 
-import org.apache.syncope.core.persistence.api.entity.Entity;
-import org.apache.syncope.core.persistence.api.entity.Implementation;
 import java.util.List;
+import org.apache.syncope.common.lib.auth.AuthModuleConf;
+import org.apache.syncope.core.persistence.api.entity.Entity;
+import org.apache.syncope.core.persistence.api.entity.resource.Item;
 
 public interface AuthModule extends Entity {
 
@@ -28,7 +29,20 @@ public interface AuthModule extends Entity {
 
     void setName(String name);
 
-    List<? extends Implementation> getConfigurations();
+    String getDescription();
 
-    boolean add(Implementation configuration);
+    void setDescription(String description);
+
+    /**
+     * Specify the mapping items for the attributes fetched from the source.
+     *
+     * @return list of mapping items
+     */
+    List<? extends Item> getProfileItems();
+
+    boolean add(Item profileItem);
+
+    AuthModuleConf getConf();
+
+    void setConf(AuthModuleConf description);
 }

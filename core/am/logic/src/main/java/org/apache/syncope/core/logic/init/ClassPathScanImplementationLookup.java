@@ -36,7 +36,6 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.Ordered;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.util.ClassUtils;
-import org.apache.syncope.common.lib.auth.AuthModuleConf;
 import org.apache.syncope.common.lib.policy.AuthPolicyConf;
 
 /**
@@ -51,8 +50,6 @@ public class ClassPathScanImplementationLookup implements SyncopeCoreLoader {
     private Map<String, Set<String>> classNames;
 
     private Map<Class<? extends AuthPolicyConf>, Class<? extends AuthPolicyConf>> authPolicyClasses;
-
-    private Map<Class<? extends AuthModuleConf>, Class<? extends AuthModuleConf>> authModuleClasses;
 
     private Map<Class<? extends AccessPolicyConf>, Class<? extends AccessPolicyConf>> accessPolicyClasses;
 
@@ -86,7 +83,6 @@ public class ClassPathScanImplementationLookup implements SyncopeCoreLoader {
         });
 
         authPolicyClasses = new HashMap<>();
-        authModuleClasses = new HashMap<>();
         accessPolicyClasses = new HashMap<>();
 
         scanner.findCandidateComponents(getBasePackage()).forEach(bd -> {
@@ -97,9 +93,6 @@ public class ClassPathScanImplementationLookup implements SyncopeCoreLoader {
 
                 if (AuthPolicyConf.class.isAssignableFrom(clazz) && !isAbstractClazz) {
                     classNames.get(AMImplementationType.AUTH_POLICY_CONFIGURATIONS).add(bd.getBeanClassName());
-                }
-                if (AuthModuleConf.class.isAssignableFrom(clazz) && !isAbstractClazz) {
-                    classNames.get(AMImplementationType.AUTH_MODULE_CONFIGURATIONS).add(bd.getBeanClassName());
                 }
                 if (AccessPolicyConf.class.isAssignableFrom(clazz) && !isAbstractClazz) {
                     classNames.get(AMImplementationType.ACCESS_POLICY_CONFIGURATIONS).add(bd.getBeanClassName());
@@ -113,7 +106,6 @@ public class ClassPathScanImplementationLookup implements SyncopeCoreLoader {
         LOG.debug("Implementation classes found: {}", classNames);
 
         authPolicyClasses = Collections.unmodifiableMap(authPolicyClasses);
-        authModuleClasses = Collections.unmodifiableMap(authModuleClasses);
         accessPolicyClasses = Collections.unmodifiableMap(accessPolicyClasses);
     }
 
@@ -125,12 +117,6 @@ public class ClassPathScanImplementationLookup implements SyncopeCoreLoader {
             final Class<? extends AuthPolicyConf> authPolicyConfClass) {
 
         return authPolicyClasses.get(authPolicyConfClass);
-    }
-
-    public Class<? extends AuthModuleConf> getAuthModuleConfClass(
-            final Class<? extends AuthModuleConf> authModuleConfClass) {
-
-        return authModuleClasses.get(authModuleConfClass);
     }
 
     public Class<? extends AccessPolicyConf> getAccessPolicyConfClass(

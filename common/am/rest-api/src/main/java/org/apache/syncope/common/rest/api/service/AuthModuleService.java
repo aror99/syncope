@@ -40,57 +40,49 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.syncope.common.lib.to.client.ClientAppTO;
-import org.apache.syncope.common.lib.types.ClientAppType;
+import org.apache.syncope.common.lib.to.AuthModuleTO;
 import org.apache.syncope.common.rest.api.RESTHeaders;
 
 /**
- * REST operations for client applications.
+ * REST operations for authentication modules.
  */
-@Tag(name = "ClientApps")
+@Tag(name = "AuthModules")
 @SecurityRequirements({
     @SecurityRequirement(name = "BasicAuthentication"),
     @SecurityRequirement(name = "Bearer") })
-@Path("clientApps")
-public interface ClientAppService extends JAXRSService {
+@Path("authModules")
+public interface AuthModuleService extends JAXRSService {
 
     /**
-     * Returns the client app matching the given key.
+     * Returns the authentication module matching the given key.
      *
-     * @param type client app type
-     * @param key key of requested client app
-     * @param <T> response type (extending ClientAppTO)
-     * @return client app with matching id
+     * @param key key of requested authentication module
+     * @return authentication module with matching id
      */
     @GET
-    @Path("{type}/{key}")
+    @Path("{key}")
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    <T extends ClientAppTO> T read(
-            @NotNull @PathParam("type") ClientAppType type,
+    AuthModuleTO read(
             @NotNull @PathParam("key") String key);
 
     /**
-     * Returns a list of client apps of the matching type.
+     * Returns a list of authentication modules of the matching type.
      *
-     * @param type Type selector for requested client apps
-     * @param <T> response type (extending ClientAppTO)
-     * @return list of client apps with matching type
+     * @return list of authentication modules with matching type
      */
     @GET
-    @Path("{type}")
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    <T extends ClientAppTO> List<T> list(@NotNull @PathParam("type") ClientAppType type);
+    List<AuthModuleTO> list();
 
     /**
-     * Create a new client app.
+     * Create a new authentication module.
      *
-     * @param type client app type
-     * @param clientAppTO ClientApp to be created (needs to match type)
-     * @return Response object featuring Location header of created client app
+     * @param authModuleTO AuthModule to be created (needs to match type)
+     * @return Response object featuring Location header of created authentication module
      */
     @ApiResponses(
             @ApiResponse(responseCode = "201",
-                    description = "ClientApp successfully created", headers = {
+                    description = "AuthModule successfully created", headers = {
                 @Header(name = RESTHeaders.RESOURCE_KEY, schema =
                         @Schema(type = "string"),
                         description = "UUID generated for the entity created"),
@@ -98,37 +90,37 @@ public interface ClientAppService extends JAXRSService {
                         @Schema(type = "string"),
                         description = "URL of the entity created") }))
     @POST
-    @Path("{type}")
     @Consumes({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    Response create(@NotNull @PathParam("type") ClientAppType type, @NotNull ClientAppTO clientAppTO);
+    Response create(
+            @NotNull AuthModuleTO authModuleTO);
 
     /**
-     * Updates client app matching the given key.
+     * Updates authentication module matching the given key.
      *
-     * @param type client app type
-     * @param clientAppTO ClientApp to replace existing client app
+     * @param authModuleTO AuthModule to replace existing authentication module
      */
-    @Parameter(name = "key", description = "ClientApp's key", in = ParameterIn.PATH, schema =
+    @Parameter(name = "key", description = "AuthModule's key", in = ParameterIn.PATH, schema =
             @Schema(type = "string"))
     @ApiResponses(
             @ApiResponse(responseCode = "204", description = "Operation was successful"))
     @PUT
-    @Path("{type}/{key}")
+    @Path("{key}")
     @Consumes({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    void update(@NotNull @PathParam("type") ClientAppType type, @NotNull ClientAppTO clientAppTO);
+    void update(
+            @NotNull AuthModuleTO authModuleTO);
 
     /**
-     * Delete client app matching the given key.
+     * Delete authentication module matching the given key.
      *
-     * @param type client app type
-     * @param key key of client app to be deleted
+     * @param key key of authentication module to be deleted
      */
     @ApiResponses(
             @ApiResponse(responseCode = "204", description = "Operation was successful"))
     @DELETE
-    @Path("{type}/{key}")
+    @Path("{key}")
     @Produces({ MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML })
-    void delete(@NotNull @PathParam("type") ClientAppType type, @NotNull @PathParam("key") String key);
+    void delete(
+            @NotNull @PathParam("key") String key);
 }

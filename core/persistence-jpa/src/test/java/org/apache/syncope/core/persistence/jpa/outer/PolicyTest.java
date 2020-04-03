@@ -28,18 +28,15 @@ import org.apache.syncope.core.persistence.jpa.inner.AbstractClientAppTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.PersistenceException;
-
 import java.util.UUID;
+import org.apache.syncope.core.persistence.api.dao.auth.OIDCRPDAO;
+import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.apache.syncope.core.persistence.api.dao.auth.OIDCRPDAO;
-import org.apache.syncope.core.persistence.api.entity.auth.OIDCRP;
 
 @Transactional("Master")
 public class PolicyTest extends AbstractClientAppTest {

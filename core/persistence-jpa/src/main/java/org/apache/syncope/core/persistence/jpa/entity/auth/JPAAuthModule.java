@@ -18,22 +18,21 @@
  */
 package org.apache.syncope.core.persistence.jpa.entity.auth;
 
-import org.apache.syncope.common.lib.types.AMImplementationType;
-import org.apache.syncope.core.persistence.api.entity.Implementation;
-import org.apache.syncope.core.persistence.jpa.entity.AbstractGeneratedKeyEntity;
-import org.apache.syncope.core.persistence.jpa.entity.JPAImplementation;
-
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.syncope.common.lib.auth.AuthModuleConf;
 import org.apache.syncope.core.persistence.api.entity.auth.AuthModule;
+import org.apache.syncope.core.persistence.api.entity.resource.Item;
+import org.apache.syncope.core.persistence.jpa.entity.AbstractGeneratedKeyEntity;
+import org.apache.syncope.core.provisioning.api.serialization.POJOHelper;
 
 @Entity
 @Table(name = JPAAuthModule.TABLE)
@@ -41,18 +40,29 @@ public class JPAAuthModule extends AbstractGeneratedKeyEntity implements AuthMod
 
     public static final String TABLE = "AuthModule";
 
-    private static final long serialVersionUID = 7422422526695279794L;
+    private static final long serialVersionUID = 5681033638234853077L;
 
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = TABLE + "Conf",
-            joinColumns =
-            @JoinColumn(name = "authentication_module_id"),
-            inverseJoinColumns =
-            @JoinColumn(name = "implementation_id"))
-    private List<JPAImplementation> configurations = new ArrayList<>();
+    @Column(nullable = false)
+    private String description;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "mapping")
+    private final List<JPAAuthModuleItem> profileItems = new ArrayList<>();
+
+    @Lob
+    private String jsonConf;
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(final String description) {
+        this.description = description;
+    }
 
     @Override
     public String getName() {
@@ -65,15 +75,30 @@ public class JPAAuthModule extends AbstractGeneratedKeyEntity implements AuthMod
     }
 
     @Override
-    public List<? extends Implementation> getConfigurations() {
-        return configurations;
+    public List<? extends Item> getProfileItems() {
+        return profileItems;
     }
 
     @Override
-    public boolean add(final Implementation configuration) {
-        checkType(configuration, JPAImplementation.class);
-        checkImplementationType(configuration, AMImplementationType.AUTH_MODULE_CONFIGURATIONS);
-        return configurations.contains((JPAImplementation) configuration)
-                || configurations.add((JPAImplementation) configuration);
+    public boolean add(final Item profileItem) {
+        checkType(profileItem, JPAAuthModuleItem.class);
+        return profileItems.contains((JPAAuthModuleItem) profileItem)
+                || profileItems.add((JPAAuthModuleItem) profileItem);
     }
+
+    @Override
+    public AuthModuleConf getConf() {
+        AuthModuleConf conf = null;
+        if (!StringUtils.isBlank(jsonConf)) {
+            conf = POJOHelper.deserialize(jsonConf, AuthModuleConf.class);
+        }
+
+        return conf;
+    }
+
+    @Override
+    public void setConf(final AuthModuleConf conf) {
+        jsonConf = POJOHelper.serialize(conf);
+    }
+
 }
